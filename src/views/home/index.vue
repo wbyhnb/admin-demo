@@ -1,8 +1,13 @@
 <template>
   <div id="">
+    <text-over :text="'欢迎你的来到'"/>
+    <but-col style="width:50px;height:50px">
+      123
+    </but-col>
     首页
     <div class="border back" :style="`background:${color}`" @click="getRandomColor"></div>
    <div class=""></div> <div class="border" :style="`color:${color}`">123456</div>
+   <Times></Times>
   </div>
 </template>
 
@@ -14,6 +19,9 @@ export default {
     };
   },
   mounted() {},
+  components: {
+    Times:()=> import('./times.vue')
+  },
   methods: {
     getRandomColor() {
       var str = "#";

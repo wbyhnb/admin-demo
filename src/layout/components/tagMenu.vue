@@ -81,6 +81,8 @@ export default {
 <style lang="scss" scoped>
 .tag-button {
   display: flex;
+  background: #eaeaea;
+  margin-bottom: 20px;
 }
 .links {
   // width: 100px;

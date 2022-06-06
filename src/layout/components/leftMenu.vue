@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="nav-menu">
     <!-- 菜单组件 -->
     <el-menu
       :default-active="$route.path"
@@ -62,4 +62,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.el-menu-vertical-demo{
+  overflow: hidden;
+}
+</style>

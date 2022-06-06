@@ -11,8 +11,11 @@ import '@/mocks/index'
 import '@/router/permission'
 /*import'@/router/router'*/
 import IconSvg from '@/components/Icon-svg'
-
+import textOver from '@/components/text-over'
+import butCol from '@/components/but-col'
 Vue.component('icon-svg', IconSvg)
+Vue.component('text-over', textOver)
+Vue.component('but-col', butCol)
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI)

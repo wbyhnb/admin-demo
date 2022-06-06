@@ -6,9 +6,11 @@
         <!-- 推出登录 -->
         <el-button type="primary" @click="logout">退出登录</el-button>
       </div>
+      <div class="main-button">
+        <TagPush />
+      </div>
       <div class="main-content">
         <Main> </Main>
-        
       </div>
     </div>
   </div>
@@ -18,10 +20,11 @@
 import { removeToken } from "@/utils/auth";
 export default {
   name: "layout",
-  components: { 
-    NavMenu: ()=> import("./components/navMenu.vue"),
-    Main:()=>import('./components/Main.vue')
-    },
+  components: {
+    NavMenu: () => import("./components/leftMenu.vue"),
+    Main: () => import("./components/Main.vue"),
+    TagPush: () => import("./components/tagMenu.vue")
+  },
   data() {
     return {};
   },
@@ -30,16 +33,16 @@ export default {
       this.$confirm("确定退出登录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       }).then(() => {
         removeToken();
         this.$router.replace("/login");
-        location.reload()
+        location.reload();
       });
-    },
+    }
   },
   computed: {},
-  created() {},
+  created() {}
 };
 </script>
 
@@ -51,19 +54,29 @@ export default {
   .nav-aside {
     width: 200px;
     height: 100%;
-    background-color: rgb(18, 238, 183);
+    overflow: hidden;
+    box-sizing: border-box;
   }
   .main {
     flex: 1;
     display: flex;
     flex-direction: column;
+      box-sizing: border-box;
+    overflow: hidden;
     .main-header {
       height: 50px;
       background-color: #eee;
+      margin-bottom: 10px;
+    }
+    .main-button {
+      height: 30px;
+      margin-bottom: 15px;
     }
     .main-content {
       flex: 1;
-      background-color: #fff;
+      padding: 0 20px;
+      // overflow: scroll;
+      // margin-right: -17px;
     }
   }
 }
