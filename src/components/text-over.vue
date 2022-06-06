@@ -27,25 +27,26 @@ export default {
 }
 
 .typing-demo {
-    display: block;
+  display: block;
   width: 100%;
-  animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+  animation: typing 1s steps(22), blink 0.5s step-end infinite alternate;
   white-space: nowrap;
   overflow: hidden;
   /* border-right: 3px solid; */
   font-family: monospace;
-  font-size: 2em;
+  /* font-weight: 700; */
+  /* font-size: 2em; */
 }
 
 @keyframes typing {
   from {
-    width: 0
+    width: 0;
   }
 }
-    
+
 @keyframes blink {
   50% {
-    border-color: transparent
+    border-color: transparent;
   }
 }
 </style>

@@ -74,7 +74,7 @@ export default {
     }
     .main-content {
       flex: 1;
-      padding: 0 20px;
+      padding: 0 15px;
       // overflow: scroll;
       // margin-right: -17px;
     }

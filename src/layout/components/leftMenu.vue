@@ -4,8 +4,7 @@
     <el-menu
       :default-active="$route.path"
       class="el-menu-vertical-demo"
-      background-color="#545c64"
-      text-color="#fff"
+      text-color="#000"
       router
       active-text-color="#ffd04b"
     >
@@ -63,7 +62,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.nav-menu{
+  height: 100%;
+ background-image: linear-gradient( -225deg, #5271c4 0%, #b19fff 48%, #eca1fe 100% )
+}
 .el-menu-vertical-demo{
   overflow: hidden;
+     
 }
 </style>

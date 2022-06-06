@@ -8,6 +8,7 @@ export default {
         data: {
           name: 'admin',
           email:'123@123.com',
+          rolename:'超级管理员',
           roles:['admin']
 
         },

@@ -51,9 +51,9 @@
 </template>
 
 <script>
-window.addEventListener("DOMContentLoaded",() => {
-	const clock = new ProgressClock("#clock");
-});
+// window.addEventListener("DOMContentLoaded",() => {
+// 	const clock = new ProgressClock("#clock");
+// });
 
 class ProgressClock {
 	constructor(qs) {
