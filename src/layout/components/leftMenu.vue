@@ -9,7 +9,9 @@
       active-text-color="#ffd04b"
     >
       <template v-for="item in routes">
-        <template v-if="item.children && !item.hidden">
+        <template
+          v-if="item.children && item.children.length > 1"
+        >
           <el-submenu :index="item.path" :key="item.path">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -35,11 +37,15 @@
             </template>
           </el-submenu>
         </template>
-        <router-link v-if="!item.children && !item.hidden" :key="item.path" :to="item.path">
-            <el-menu-item :index="item.path">
-              <i class="el-icon-menu"></i>
-              <span slot="title">{{ item.meta.title }}</span>
-            </el-menu-item>
+        <router-link
+          v-else-if="!item.hidden"
+          :key="item.path"
+          :to="item.path"
+        >
+          <el-menu-item :index="item.path">
+            <i class="el-icon-menu"></i>
+            <span slot="title">{{ item.meta.title }}</span>
+          </el-menu-item>
         </router-link>
       </template>
     </el-menu>
@@ -62,12 +68,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nav-menu{
+.nav-menu {
   height: 100%;
- background-image: linear-gradient( -225deg, #5271c4 0%, #b19fff 48%, #eca1fe 100% )
+  background-image: linear-gradient(
+    -225deg,
+    #5271c4 0%,
+    #b19fff 48%,
+    #eca1fe 100%
+  );
 }
-.el-menu-vertical-demo{
+.el-menu-vertical-demo {
   overflow: hidden;
-     
 }
 </style>
