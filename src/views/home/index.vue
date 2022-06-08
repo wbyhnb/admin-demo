@@ -38,48 +38,82 @@
               </el-row>
             </el-card>
           </el-col>
-          <el-col :span="14">
+          <el-col :span="16">
             <el-card class="box-card">
-              <el-row :gutter="20">
-                <el-col :span="8"> 系统消息</el-col>
-                <el-col :span="8"> </el-col>
-                <el-col :span="8"> </el-col>
-                <el-col :span="8"> </el-col>
-              </el-row>
+              系统消息
+              <el-divider content-position="left">o_o ....</el-divider>
+              <div class="topmsg">
+                <div :span="6" class="mag1 box">
+                  <div class="text">访问数量</div>
+                  <div class="num">320</div>
+                </div>
+                <div :span="6" class="mag2 box">
+                  <div class="text">用户数量</div>
+                  <div class="num">320</div>
+                </div>
+                <div :span="6" class="mag3 box">
+                  <div class="text">代办事项</div>
+                  <div class="num">320</div>
+                </div>
+                <div :span="6" class="mag4 box">
+                  <div class="text">推广数量</div>
+                  <div class="num">320</div>
+                </div>
+              </div>
             </el-card>
           </el-col> </el-row
-        ><el-row :gutter="20">
+        ><el-row :gutter="20" style="marginTop:20px">
+          <el-col :span="16">
+            <el-card>
+              每日一笑
+              <el-divider content-position="left">(＠_＠;).</el-divider>
+              <div class="" v-for="item,index in jokeList" :key="index">
+                <div class="joke-text">&emsp;&emsp;{{index+1}}.{{item.content}}</div>
+              </div>
+            </el-card>
+          </el-col>
           <el-col :span="8">
             <el-card class="box-card">
+              项目配置
+              <el-divider content-position="left">༼ つ ◕_◕ ༽つ</el-divider>
               <el-row>
-                <el-col :span="3">html:</el-col>
-                <el-col :span="21"
+                <el-col :span="4">HTML:</el-col>
+                <el-col :span="20"
                   ><el-progress :percentage="50"></el-progress
                 ></el-col>
-                <el-col :span="3">css:</el-col>
-                <el-col :span="21"
+              </el-row>
+              <el-row>
+                <el-col :span="4">CSS:</el-col>
+                <el-col :span="20"
                   ><el-progress :percentage="100"></el-progress
                 ></el-col>
-                <el-col :span="3">js:</el-col>
-                <el-col :span="21"
+              </el-row>
+              <el-row>
+                <el-col :span="4">JS:</el-col>
+                <el-col :span="20"
                   ><el-progress :percentage="60" status="success"></el-progress
                 ></el-col>
-                <el-col :span="3">echarts:</el-col>
-                <el-col :span="21"
+              </el-row>
+              <el-row>
+                <el-col :span="4">ECHARTS:</el-col>
+                <el-col :span="20"
                   ><el-progress :percentage="40" status="warning"></el-progress
                 ></el-col>
-                <el-col :span="3">vue:</el-col>
-                <el-col :span="21"
+              </el-row>
+              <el-row>
+                <el-col :span="4">VUE:</el-col>
+                <el-col :span="20"
                   ><el-progress
                     :percentage="90"
                     status="exception"
                   ></el-progress
                 ></el-col>
               </el-row>
-            </el-card> </el-col
-        ></el-row>
+            </el-card>
+          </el-col>
+        </el-row>
       </el-col>
-      <el-col :span="6"></el-col>
+      <el-col :span="6"> </el-col>
     </el-row>
   </div>
 </template>
@@ -90,10 +124,12 @@ export default {
   data() {
     return {
       color: "",
-      ipconfig: ""
+      ipconfig: "",
+      jokeList: [],
     };
   },
   mounted() {
+    this.getJoke();
     this.getCusIpAdress();
   },
   components: {
@@ -105,6 +141,17 @@ export default {
     }
   },
   methods: {
+    //获取笑话
+    getJoke() {
+      this.$axios
+        .get(
+          "https://www.mxnzp.com/api/jokes/list/random?app_id=cfqvqqhvrbqqatpf&app_secret=U05NaC9FTkVVek1Rcld0NWFDMzZnUT09"
+        )
+        .then(res => {
+          this.jokeList = res.data.data
+          this.jokeList = this.jokeList.splice(7)
+        });
+    },
     getCusIpAdress() {
       var data;
       let xmlHttpRequest;
@@ -170,6 +217,70 @@ export default {
     height: 100%;
     font-weight: 700;
     font-size: 23px;
+  }
+  .topmsg {
+    display: flex;
+    justify-content: space-between;
+    .box {
+      border-radius: 5px;
+      width: 23%;
+      box-sizing: border-box;
+
+      padding: 15px;
+      font-weight: 700;
+      color: #ffffff;
+      .text {
+        text-align: center;
+        font-size: 20px;
+        font-family: KaiTi;
+      }
+      .num {
+        text-align: right;
+        line-height: 70px;
+        font-size: 30px;
+        font-family: KaiTi;
+      }
+    }
+    .mag1 {
+      height: 126px;
+      background-color: #c04851;
+    }
+    .mag1:hover {
+      background: #ffffff;
+      border: 3px solid #c04851;
+      color: #c04851;
+    }
+    .mag2 {
+      height: 126px;
+      background-color: #7a7374;
+    }
+    .mag2:hover {
+      background: #ffffff;
+      border: 3px solid #7a7374;
+      color: #7a7374;
+    }
+    .mag3 {
+      height: 126px;
+      background-color: #ec2d7a;
+    }
+    .mag3:hover {
+      background: #ffffff;
+      border: 3px solid #ec2d7a;
+      color: #ec2d7a;
+    }
+    .mag4 {
+      height: 126px;
+      background-color: #93b5cf;
+    }
+    .mag4:hover {
+      background: #ffffff;
+      border: 3px solid #93b5cf;
+      color: #93b5cf;
+    }
+  }
+  .joke-text{
+    font-size: 15px;
+    line-height: 25px;
   }
 }
 .back {
