@@ -15,7 +15,14 @@ module.exports = {
         target: 'https://www.mxnzp.com',
         changeOrigin: true,
         pathRewrite: {
-          '^/api': ''
+          '^/api': '/api'
+        }
+      },
+      '/home': {
+        target: 'https://www.iamwawa.cn',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/home': '/home'
         }
       }
     },

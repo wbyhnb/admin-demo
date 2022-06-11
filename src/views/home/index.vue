@@ -33,8 +33,8 @@
                 <el-col :span="24">
                   <el-divider content-position="left">┗|｀O′|┛ 嗷~~</el-divider>
                 </el-col>
-                <el-col :span="24"> 登录ip：{{ ipconfig[0] }} </el-col>
-                <el-col :span="24"> 登录地点：{{ ipconfig[1] }} </el-col>
+                <el-col :span="24"> 登录ip：{{ ipconfig.ip }} </el-col>
+                <el-col :span="24"> 登录地点：{{ ipconfig.province }} </el-col>
               </el-row>
             </el-card>
           </el-col>
@@ -62,13 +62,31 @@
               </div>
             </el-card>
           </el-col> </el-row
-        ><el-row :gutter="20" style="marginTop:20px">
+        ><el-row :gutter="20" style="margintop: 20px">
           <el-col :span="16">
             <el-card>
-              每日一笑
+              <div class="head">
+                <div class="head-text">每日一笑</div>
+                <div class="head-but" @click="getJoke">换一个</div>
+              </div>
               <el-divider content-position="left">(＠_＠;).</el-divider>
-              <div class="" v-for="item,index in jokeList" :key="index">
-                <div class="joke-text">&emsp;&emsp;{{index+1}}.{{item.content}}</div>
+              <div class="joke-box">
+                <div v-for="(item, index) in jokeList" :key="index">
+                  <div class="joke-text">
+                    &emsp;&emsp;{{ index + 1 }}.{{ item.content }}
+                  </div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card class="hall">
+              <div class="hall-tag">
+                <div class="tags" v-for="item in items" :key="item.label">
+                  <el-tag effect="dark" :type="item.type">
+                    {{ item.label }}
+                  </el-tag>
+                </div>
               </div>
             </el-card>
           </el-col>
@@ -113,72 +131,172 @@
           </el-col>
         </el-row>
       </el-col>
-      <el-col :span="6"> </el-col>
+      <el-col :span="6">
+        <el-card>
+          <el-row :gutter="20">
+            <el-col :span="8"> 
+              <div class="weather">
+              湿度<el-divider direction="vertical"></el-divider>{{dayWeather.humidity}}<br/>
+              温度<el-divider direction="vertical"></el-divider>{{dayWeather.temp}}<br/>
+              天气<el-divider direction="vertical"></el-divider>{{dayWeather.weather}}<br/>
+              风向<el-divider direction="vertical"></el-divider>{{dayWeather.windDirection}}<br/>
+              风力<el-divider direction="vertical"></el-divider>{{dayWeather.windPower}}</div>
+               </el-col>
+            <el-col :span="16"
+              ><div
+                class="times"
+                :style="{ color: this.color }"
+                @click="getRandomColor"
+              >
+                {{ time }}
+              </div>
+              <div class="years" :style="{ color: this.color }">
+                {{ year }}<el-divider direction="vertical"></el-divider
+                >{{ dayInfo.yearTips }}
+                <el-divider direction="vertical"></el-divider
+                >{{ dayInfo.chineseZodiac }}年<br />
+                农历<el-divider direction="vertical"></el-divider
+                >{{ dayInfo.lunarCalendar
+                }}<el-divider direction="vertical"></el-divider
+                >{{ dayInfo.solarTerms }}<br />
+                今日<el-divider direction="vertical"></el-divider
+                >{{ dayInfo.typeDes
+                }}<el-divider direction="vertical"></el-divider>星座<el-divider
+                  direction="vertical"
+                ></el-divider
+                >{{ dayInfo.constellation }}<br />
+              </div>
+            </el-col>
+            <el-col :span="24">
+              <el-tag type="success" effect="dark">宜</el-tag
+              ><span class="span1">{{ dayInfo.suit }}</span>
+            </el-col>
+            <el-col :span="24"
+              ><el-tag type="danger" effect="dark">忌</el-tag
+              ><span class="span2">{{ dayInfo.avoid }}</span>
+            </el-col>
+          </el-row>
+        </el-card>
+        <el-card>
+          <div class="gusi">
+             <div class="head">
+                <div class="head-text">每日一言</div>
+                <div class="head-but" @click="getGusi">换一个</div>
+              </div>
+              <el-divider content-position="left">\(@^0^@)/</el-divider>
+            <div class="gs-title" :style="{ color: this.color }">{{poetry.content}}</div>
+            <div class="gs-zz">{{poetry.title}}--{{poetry.author}}</div>
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+var moment = require("moment");
+let icnow = new Date(); // 初始化时间
+let interval; // 定义全局定时器，用于清除定时器
+import  * as api from "@/api/home.js";
 export default {
   name: "home",
   data() {
     return {
       color: "",
-      ipconfig: "",
+      ipconfig: {
+        province: "",
+      },
       jokeList: [],
+      time: icnow.toTimeString().substring(0, 8),
+      year: icnow.getFullYear(),
+      month: icnow.getMonth() + 1,
+      date: icnow.getDate(),
+      yearday: moment().format("YYYYMMDD"),
+      dayInfo: {},
+      poetry:{},
+      dayWeather:{},
+      lizhi:{},
+      items: [
+        { type: "", label: "VUE" },
+        { type: "success", label: "HTML" },
+        { type: "info", label: "JAVASCRIPT" },
+        { type: "danger", label: "CSS" },
+        { type: "warning", label: "ECHARTS" },
+      ],
     };
   },
-  mounted() {
+  created() {
     this.getJoke();
-    this.getCusIpAdress();
+    this.getIp();
+    this.getRandomColor();
+    this.getTime();
+    this.getData();
+    this.getGusi();
+    this.getLizhi();
+    
+  },
+  mounted() {
+    
   },
   components: {
-    Times: () => import("./times.vue")
+    Times: () => import("./times.vue"),
   },
   computed: {
     userInfo() {
       return this.$store.state.user.userInfo;
-    }
+    },
   },
   methods: {
+    //获取天气
+    getWeather() {
+      console.log(this.ipconfig.province);
+      api.getWeather(this.ipconfig.province).then((res) => {
+        this.dayWeather = res.data.data;
+      });
+    },
+    //获取古诗词
+    getGusi() {
+      api.getPoetry().then((res) => {
+        console.log(res);
+        this.poetry = res.data.data;
+      });
+    },
+    //获取励志
+    getLizhi() {
+      api.getLizhi().then((res) => {
+        console.log(res);
+        this.lizhi = res.data.data;
+      });
+    },
+    //获取时间
+    getTime() {
+      interval = setInterval(() => {
+        let icnow = new Date();
+        this.time = icnow.toTimeString().substring(0, 8);
+      }, 1000);
+    },
     //获取笑话
     getJoke() {
-      this.$axios
-        .get(
-          "https://www.mxnzp.com/api/jokes/list/random?app_id=cfqvqqhvrbqqatpf&app_secret=U05NaC9FTkVVek1Rcld0NWFDMzZnUT09"
-        )
-        .then(res => {
-          this.jokeList = res.data.data
-          this.jokeList = this.jokeList.splice(7)
+      api.getJoke()
+        .then((res) => {
+          this.jokeList = res.data.data;
+          this.jokeList = this.jokeList;
         });
     },
-    getCusIpAdress() {
-      var data;
-      let xmlHttpRequest;
-      if (window.ActiveXObject) {
-        xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
-      } else if (window.XMLHttpRequest) {
-        xmlHttpRequest = new XMLHttpRequest();
-      }
-      xmlHttpRequest.onreadystatechange = function() {
-        if (xmlHttpRequest.readyState == 4) {
-          if (xmlHttpRequest.status == 200) {
-            data = xmlHttpRequest.responseText;
-          } else {
-          }
-        }
-      };
-      xmlHttpRequest.open("get", "https://2022.ip138.com", false);
-      xmlHttpRequest.send(null);
-      var datalist = data.split("\n");
-      var patt = [/[0-9]+.[0-9]+.[0-9]+.[0-9]+/, /来自/, []];
-      for (var i in datalist) {
-        if (patt[0].test(datalist[i]) && patt[1].test(datalist[i])) {
-          patt[2].push(patt[0].exec(datalist[i])[0]);
-          patt[2].push(datalist[i].substr(patt[1].exec(datalist[i]).index + 3));
-        }
-      }
-      this.ipconfig = patt[2];
+    //获取今日信息
+    getData() {
+      api.getData(this.yearday)
+        .then((res) => {
+          console.log(res);
+          this.dayInfo = res.data.data;
+        });
+    },
+    getIp() {
+      api.getIp()
+        .then((res) => {
+          this.ipconfig = res.data.data;
+          this.getWeather()
+        });
     },
     getRandomColor() {
       var str = "#";
@@ -198,7 +316,7 @@ export default {
         "c",
         "d",
         "e",
-        "f"
+        "f",
       ];
       for (var i = 0; i < 6; i++) {
         var num = parseInt(Math.random() * 16);
@@ -206,8 +324,11 @@ export default {
       }
       this.color = str;
       console.log(str);
-    }
-  }
+    },
+  },
+  beforeDestroy() {
+    clearInterval(interval);
+  },
 };
 </script>
 
@@ -241,6 +362,37 @@ export default {
         font-family: KaiTi;
       }
     }
+    .box:hover {
+      animation: vibrate-1 0.3s linear infinite both;
+    }
+   @keyframes vibrate-1 {
+  0% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+  20% {
+    -webkit-transform: translate(-2px, 2px);
+            transform: translate(-2px, 2px);
+  }
+  40% {
+    -webkit-transform: translate(-2px, -2px);
+            transform: translate(-2px, -2px);
+  }
+  60% {
+    -webkit-transform: translate(2px, 2px);
+            transform: translate(2px, 2px);
+  }
+  80% {
+    -webkit-transform: translate(2px, -2px);
+            transform: translate(2px, -2px);
+  }
+  100% {
+    -webkit-transform: translate(0);
+            transform: translate(0);
+  }
+}
+
+
     .mag1 {
       height: 126px;
       background-color: #c04851;
@@ -278,9 +430,123 @@ export default {
       color: #93b5cf;
     }
   }
-  .joke-text{
+  .joke-text {
     font-size: 15px;
     line-height: 25px;
+  }
+  .joke-box {
+    height: 150px;
+    overflow-y: scroll;
+  }
+  .joke-box::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .joke-box::-webkit-scrollbar-thumb {
+    background: rgba(131, 131, 131, 0.394);
+    border-radius: 5px;
+  }
+  .head {
+    display: flex;
+    justify-content: space-between;
+    .head-but {
+      font-size: 15px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .head-but:hover {
+      color: #c04851;
+    }
+  }
+  .hall {
+    height: 74px;
+
+    .hall-tag {
+      display: flex;
+      margin-right: 20px;
+      overflow-x: scroll;
+      // margin-bottom: 25px;
+      .tags {
+        margin-right: 20px;
+        cursor: pointer;
+      }
+    }
+    .hall-tag::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .hall-tag::-webkit-scrollbar-thumb:hover {
+      display: block;
+    }
+    .hall-tag::-webkit-scrollbar-thumb {
+      display: none;
+      background: rgba(131, 131, 131, 0.394);
+      border-radius: 5px;
+    }
+  }
+  .times {
+    font-size: 30px;
+    cursor: pointer;
+    user-select: none;
+    font-family: NSimSun;
+    text-align: right;
+    animation: times-text 0.8s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  }
+  @keyframes times-text {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-transform: translateZ(-700px);
+      transform: translateZ(-700px);
+      opacity: 0;
+    }
+    40% {
+      opacity: 0.6;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      opacity: 1;
+    }
+  }
+  .years {
+    text-align: right;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: LiSu;
+  }
+  .span1 {
+    font-size: 14px;
+    margin-left: 15px;
+    color: #67c23a;
+    font-weight: 700;
+    font-family: LiSu;
+  }
+  .span2 {
+    font-size: 14px;
+    color: #f56c6c;
+    margin-left: 15px;
+    font-weight: 700;
+    font-family: LiSu;
+  }
+  .gusi{
+    .gs-title{
+      font-size: 20px;
+      font-weight: 700;
+      
+      font-family: KaiTi;
+    }
+    .gs-zz{
+      font-size: 14px;
+      font-weight: 700;
+      font-family: KaiTi;
+      margin-top: 5px;
+      text-align: right;
+    }
+  }
+  .weather{
+    font-size: 12px;
+    font-weight: 700;
+    font-family: MingLiU;
   }
 }
 .back {

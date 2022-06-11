@@ -21,14 +21,7 @@ export default {
     }
   },
   created () {
-    interval = setInterval(() =>{
-      let icnow = new Date();
-        this.year = icnow.getFullYear();
-        this.month = icnow.getMonth() + 1;
-        this.date = icnow.getDate();
-        this.day = days[icnow.getDay()];
-        this.time = icnow.toTimeString().substring(0, 8);
-    }, 1000)
+    
   },
   computed: {
             // 当前时间
