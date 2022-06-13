@@ -43,26 +43,44 @@
               系统消息
               <el-divider content-position="left">o_o ....</el-divider>
               <div class="topmsg">
-                <div :span="6" class="mag1 box">
+                <div :span="6" class="mag1 box" @click="highlight('访问数量')">
                   <div class="text">访问数量</div>
-                  <div class="num">320</div>
+                  <div class="num">
+                    <icon-svg icon-class="fangwenliang" class="icons" />
+                    320
+                  </div>
                 </div>
-                <div :span="6" class="mag2 box">
+                <div :span="6" class="mag2 box" @click="highlight('用户数量')">
                   <div class="text">用户数量</div>
-                  <div class="num">320</div>
+                  <div class="num">
+                    <icon-svg icon-class="yonghu" class="icons" />
+                    390
+                  </div>
                 </div>
-                <div :span="6" class="mag3 box">
+                <div :span="6" class="mag3 box" @click="highlight('代办事项')">
                   <div class="text">代办事项</div>
-                  <div class="num">320</div>
+                  <div class="num">
+                    <icon-svg icon-class="daibanshixiang" class="icons" /> 320
+                  </div>
                 </div>
-                <div :span="6" class="mag4 box">
+                <div :span="6" class="mag4 box" @click="highlight('推广数量')">
                   <div class="text">推广数量</div>
-                  <div class="num">320</div>
+                  <div class="num">
+                    <icon-svg icon-class="huodongtuiguang" class="icons" /> 320
+                  </div>
                 </div>
               </div>
             </el-card>
-          </el-col> </el-row
-        ><el-row :gutter="20" style="margintop: 20px">
+          </el-col>
+        </el-row>
+        <el-row :gutter="20" :style="{ marginTop: '20px' }">
+          <el-col :span="24">
+            <el-card>
+              <Charts ref="charts" />
+            </el-card>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20" :style="{ marginTop: '20px' }">
           <el-col :span="16">
             <el-card>
               <div class="head">
@@ -134,14 +152,20 @@
       <el-col :span="6">
         <el-card>
           <el-row :gutter="20">
-            <el-col :span="8"> 
+            <el-col :span="8">
               <div class="weather">
-              湿度<el-divider direction="vertical"></el-divider>{{dayWeather.humidity}}<br/>
-              温度<el-divider direction="vertical"></el-divider>{{dayWeather.temp}}<br/>
-              天气<el-divider direction="vertical"></el-divider>{{dayWeather.weather}}<br/>
-              风向<el-divider direction="vertical"></el-divider>{{dayWeather.windDirection}}<br/>
-              风力<el-divider direction="vertical"></el-divider>{{dayWeather.windPower}}</div>
-               </el-col>
+                湿度<el-divider direction="vertical"></el-divider
+                >{{ dayWeather.humidity }}<br />
+                温度<el-divider direction="vertical"></el-divider
+                >{{ dayWeather.temp }}<br />
+                天气<el-divider direction="vertical"></el-divider
+                >{{ dayWeather.weather }}<br />
+                风向<el-divider direction="vertical"></el-divider
+                >{{ dayWeather.windDirection }}<br />
+                风力<el-divider direction="vertical"></el-divider
+                >{{ dayWeather.windPower }}
+              </div>
+            </el-col>
             <el-col :span="16"
               ><div
                 class="times"
@@ -179,14 +203,33 @@
         </el-card>
         <el-card>
           <div class="gusi">
-             <div class="head">
-                <div class="head-text">每日一言</div>
-                <div class="head-but" @click="getGusi">换一个</div>
-              </div>
-              <el-divider content-position="left">\(@^0^@)/</el-divider>
-            <div class="gs-title" :style="{ color: this.color }">{{poetry.content}}</div>
-            <div class="gs-zz">{{poetry.title}}--{{poetry.author}}</div>
+            <div class="head">
+              <div class="head-text">吾日三省</div>
+              <div class="head-but" @click="getGusi">换一个</div>
+            </div>
+            <el-divider content-position="left">O｡o...</el-divider>
+            <div class="gs-title" :style="{ color: this.color }">
+              {{ poetry.content }}
+            </div>
+            <div class="gs-zz">{{ poetry.title }}--{{ poetry.author }}</div>
           </div>
+        </el-card>
+        <el-card>
+          <div class="gusi">
+            <div class="gs-title" :style="{ color: this.color }">
+              {{ lizhi }}
+            </div>
+          </div>
+        </el-card>
+        <el-card>
+          <div class="gusi">
+            <div class="gs-title" :style="{ color: this.color }">
+              {{ dujitang }}
+            </div>
+          </div>
+        </el-card>
+        <el-card>
+          <ItemCharts />
         </el-card>
       </el-col>
     </el-row>
@@ -197,7 +240,7 @@
 var moment = require("moment");
 let icnow = new Date(); // 初始化时间
 let interval; // 定义全局定时器，用于清除定时器
-import  * as api from "@/api/home.js";
+import * as api from "@/api/home.js";
 export default {
   name: "home",
   data() {
@@ -213,9 +256,10 @@ export default {
       date: icnow.getDate(),
       yearday: moment().format("YYYYMMDD"),
       dayInfo: {},
-      poetry:{},
-      dayWeather:{},
-      lizhi:{},
+      poetry: {},
+      dayWeather: {},
+      lizhi: "",
+      dujitang: "",
       items: [
         { type: "", label: "VUE" },
         { type: "success", label: "HTML" },
@@ -226,20 +270,17 @@ export default {
     };
   },
   created() {
-    this.getJoke();
-    this.getIp();
-    this.getRandomColor();
-    this.getTime();
-    this.getData();
-    this.getGusi();
-    this.getLizhi();
-    
+    // this.getJoke();
+    // this.getIp();
+    // this.getRandomColor();
+    // this.getTime();
+    // this.getData();
+    // this.getGusi();
   },
-  mounted() {
-    
-  },
+  mounted() {},
   components: {
-    Times: () => import("./times.vue"),
+    Charts: () => import("./components/charts.vue"),
+    ItemCharts: () => import("./components/item.vue"),
   },
   computed: {
     userInfo() {
@@ -247,6 +288,9 @@ export default {
     },
   },
   methods: {
+    highlight(name) {
+      this.$refs.charts.heightChart(name);
+    },
     //获取天气
     getWeather() {
       console.log(this.ipconfig.province);
@@ -255,17 +299,19 @@ export default {
       });
     },
     //获取古诗词
-    getGusi() {
-      api.getPoetry().then((res) => {
+    async getGusi() {
+      await api.getPoetry().then((res) => {
         console.log(res);
         this.poetry = res.data.data;
       });
-    },
-    //获取励志
-    getLizhi() {
-      api.getLizhi().then((res) => {
+      //获取励志
+      await api.getLizhi().then((res) => {
         console.log(res);
         this.lizhi = res.data.data;
+      });
+      //毒鸡汤
+      await api.getDjt().then((res) => {
+        this.dujitang = res.data.data;
       });
     },
     //获取时间
@@ -277,26 +323,23 @@ export default {
     },
     //获取笑话
     getJoke() {
-      api.getJoke()
-        .then((res) => {
-          this.jokeList = res.data.data;
-          this.jokeList = this.jokeList;
-        });
+      api.getJoke().then((res) => {
+        this.jokeList = res.data.data;
+        this.jokeList = this.jokeList;
+      });
     },
     //获取今日信息
     getData() {
-      api.getData(this.yearday)
-        .then((res) => {
-          console.log(res);
-          this.dayInfo = res.data.data;
-        });
+      api.getData(this.yearday).then((res) => {
+        console.log(res);
+        this.dayInfo = res.data.data;
+      });
     },
     getIp() {
-      api.getIp()
-        .then((res) => {
-          this.ipconfig = res.data.data;
-          this.getWeather()
-        });
+      api.getIp().then((res) => {
+        this.ipconfig = res.data.data;
+        this.getWeather();
+      });
     },
     getRandomColor() {
       var str = "#";
@@ -345,6 +388,7 @@ export default {
     .box {
       border-radius: 5px;
       width: 23%;
+      cursor: pointer;
       box-sizing: border-box;
 
       padding: 15px;
@@ -356,55 +400,58 @@ export default {
         font-family: KaiTi;
       }
       .num {
-        text-align: right;
-        line-height: 70px;
+        padding: 20px 0;
+        text-align: center;
         font-size: 30px;
         font-family: KaiTi;
+        .icons {
+          font-size: 50px;
+        }
       }
     }
     .box:hover {
       animation: vibrate-1 0.3s linear infinite both;
     }
-   @keyframes vibrate-1 {
-  0% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
-  }
-  20% {
-    -webkit-transform: translate(-2px, 2px);
-            transform: translate(-2px, 2px);
-  }
-  40% {
-    -webkit-transform: translate(-2px, -2px);
-            transform: translate(-2px, -2px);
-  }
-  60% {
-    -webkit-transform: translate(2px, 2px);
-            transform: translate(2px, 2px);
-  }
-  80% {
-    -webkit-transform: translate(2px, -2px);
-            transform: translate(2px, -2px);
-  }
-  100% {
-    -webkit-transform: translate(0);
-            transform: translate(0);
-  }
-}
-
+    @keyframes vibrate-1 {
+      0% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+      }
+      20% {
+        -webkit-transform: translate(-2px, 2px);
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        -webkit-transform: translate(-2px, -2px);
+        transform: translate(-2px, -2px);
+      }
+      60% {
+        -webkit-transform: translate(2px, 2px);
+        transform: translate(2px, 2px);
+      }
+      80% {
+        -webkit-transform: translate(2px, -2px);
+        transform: translate(2px, -2px);
+      }
+      100% {
+        -webkit-transform: translate(0);
+        transform: translate(0);
+      }
+    }
 
     .mag1 {
       height: 126px;
-      background-color: #c04851;
+      background-color: #ed2c2c;
+      opacity: 0.8;
     }
     .mag1:hover {
       background: #ffffff;
-      border: 3px solid #c04851;
-      color: #c04851;
+      border: 3px solid #4bb300;
+      color: #4bb300;
     }
     .mag2 {
       height: 126px;
-      background-color: #7a7374;
+      background-color: #5470c6;
     }
     .mag2:hover {
       background: #ffffff;
@@ -413,7 +460,7 @@ export default {
     }
     .mag3 {
       height: 126px;
-      background-color: #ec2d7a;
+      background-color: #91cc75;
     }
     .mag3:hover {
       background: #ffffff;
@@ -422,7 +469,7 @@ export default {
     }
     .mag4 {
       height: 126px;
-      background-color: #93b5cf;
+      background-color: #fac858;
     }
     .mag4:hover {
       background: #ffffff;
@@ -528,14 +575,14 @@ export default {
     font-weight: 700;
     font-family: LiSu;
   }
-  .gusi{
-    .gs-title{
+  .gusi {
+    .gs-title {
       font-size: 20px;
       font-weight: 700;
-      
+
       font-family: KaiTi;
     }
-    .gs-zz{
+    .gs-zz {
       font-size: 14px;
       font-weight: 700;
       font-family: KaiTi;
@@ -543,7 +590,7 @@ export default {
       text-align: right;
     }
   }
-  .weather{
+  .weather {
     font-size: 12px;
     font-weight: 700;
     font-family: MingLiU;

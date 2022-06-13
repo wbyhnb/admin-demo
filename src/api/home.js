@@ -32,3 +32,7 @@ export function getWeather(params) {
 export function getLizhi(params) {
   return http.get(`/home/lizhi/ajax`);
 }
+//毒鸡汤
+export function getDjt(params) {
+  return http.get(`/home/dujitang/ajax`);
+}
