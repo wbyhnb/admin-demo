@@ -3,6 +3,7 @@
     <div class="nav-aside"><NavMenu /></div>
     <div class="main">
       <div class="main-header">
+        <Header />
         <!-- 推出登录 -->
         <el-button type="primary" @click="logout">退出登录</el-button>
       </div>
@@ -23,7 +24,8 @@ export default {
   components: {
     NavMenu: () => import("./components/leftMenu.vue"),
     Main: () => import("./components/Main.vue"),
-    TagPush: () => import("./components/tagMenu.vue")
+    TagPush: () => import("./components/tagMenu.vue"),
+    Header: () => import("./components/header.vue"),
   },
   data() {
     return {};

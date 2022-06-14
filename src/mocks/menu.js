@@ -6,6 +6,85 @@ export default {
       return {
         code: 200,
         data: [
+          //图标
+          {
+            path: "/icon",
+            name: "Icon",
+            hidden: false,
+            component: "Layout",
+            redirect: "/icon/index",
+            meta: {
+              title: "图标"
+            },
+            children: [
+              {
+                path: "/icon/index",
+                name: "IconIndex",
+                hidden: false,
+                component: "icons",
+                meta: {
+                  requireAuth: true,
+                  title: "图标"
+                }
+              }
+            ]
+          },
+          //组件
+          {
+            path: "/component",
+            name: "Component",
+            hidden: false,
+            component: "Layout",
+            redirect: "/component/index",
+            meta: {
+              title: "组件"
+            },
+            children: [
+              {
+                path: "/component/index",
+                name: "ComponentIndex",
+                hidden: false,
+                component: "component",
+                meta: {
+                  requireAuth: true,
+                  title: "组件"
+                }
+              }
+            ]
+          },
+          //富文本
+          {
+            path: "/editor",
+            name: "Editor",
+            hidden: false,
+            component: "Layout",
+            redirect: "/editor/index",
+            meta: {
+              title: "富文本"
+            },
+            children: [
+              {
+                path: "/editor/index",
+                name: "EditorIndex",
+                hidden: false,
+                component: "editor/tinymce",
+                meta: {
+                  requireAuth: true,
+                  title: "tinymce富文本"
+                }
+              },
+              {
+                path: "/editor/baidu",
+                name: "EditorBaidu",
+                hidden: false,
+                component: "editor/baidu",
+                meta: {
+                  requireAuth: true,
+                  title: "百度富文本"
+                }
+              },
+            ]
+          },
           {
             path: "/user",
             hidden: false,
@@ -118,7 +197,7 @@ export default {
                 }
               }
             ]
-          },
+          }
         ],
         message: "获取成功"
       };

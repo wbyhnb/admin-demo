@@ -3,8 +3,6 @@ import Router from "vue-router";
 import Layout from "@/layout";
 Vue.use(Router);
 
-
-
 export const  routes= [
     {
       path: "/",
@@ -23,6 +21,28 @@ export const  routes= [
           meta: {
             requireAuth: true,
             title: "首页"
+          }
+        }
+      ]
+    },
+    //文档
+    {
+      path: "/document",
+      hidden: false,
+      component: Layout,
+      redirect: "/document/index",
+      meta: {
+        title: "文档"
+      },
+      children: [
+        {
+          path: "/document/index",
+          name: "Document",
+          hidden: false,
+          component: () => import("@/views/document"),
+          meta: {
+            requireAuth: true,
+            title: "文档"
           }
         }
       ]

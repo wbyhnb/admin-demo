@@ -9,6 +9,7 @@ export default {
           name: 'admin',
           email:'123@123.com',
           rolename:'超级管理员',
+          avatar:'https://s3.bmp.ovh/imgs/2022/06/13/f48750114b37d6c0.jpeg',
           roles:['admin']
 
         },
@@ -20,6 +21,8 @@ export default {
         data:{
           name:'user',
           email:'456@456.com',
+          rolename:'普通用户',
+          avatar:'https://s3.bmp.ovh/imgs/2022/06/13/aa1d2a89e0ef23f0.jpg',
           roles:['editor']
 
         },

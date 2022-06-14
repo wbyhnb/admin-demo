@@ -1,0 +1,23 @@
+<template>
+  <div class="">
+    <h1>Tinymce富文本</h1>
+    <div class="" v-html="content"></div>
+    <Tinymce v-model="content" />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      content: "",
+    };
+  },
+  components: {
+    Tinymce: () => import("@/components/tinymce.vue"),
+  },
+};
+</script>
+
+<style>
+</style>

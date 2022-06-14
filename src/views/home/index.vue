@@ -1,13 +1,7 @@
 <template>
   <div class="home">
-    <!-- <text-over :text="'欢迎你的来到'"/>
-    <but-col style="width:50px;height:50px">
-      123
-    </but-col> -->
-
     <!-- <div class="border back" :style="`background:${color}`" @click="getRandomColor"></div> -->
     <!-- <div class=""></div> <div class="border" :style="`color:${color}`">123456</div> -->
-    <!-- <Times></Times> -->
     <el-row :gutter="20">
       <el-col :span="18">
         <el-row :gutter="20">
@@ -20,7 +14,7 @@
                       shape="square"
                       :size="100"
                       fit="fill"
-                      src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+                      :src="userInfo.avatar"
                     ></el-avatar>
                   </div>
                 </el-col>
@@ -270,12 +264,12 @@ export default {
     };
   },
   created() {
-    // this.getJoke();
-    // this.getIp();
-    // this.getRandomColor();
-    // this.getTime();
-    // this.getData();
-    // this.getGusi();
+    this.getJoke();
+    this.getIp();
+    this.getRandomColor();
+    this.getTime();
+    this.getData();
+    this.getGusi();
   },
   mounted() {},
   components: {

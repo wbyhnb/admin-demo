@@ -122,7 +122,7 @@ function loadView(view) {
 }
 router.afterEach((to, from, next) => {
   // 在即将进入新的页面组件前，关闭掉进度条
-  // document.title = to.meta.title
+  document.title = to.meta.title
   window.scrollTo(0, 0);
   NProgress.done();
 });

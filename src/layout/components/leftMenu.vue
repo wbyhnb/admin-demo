@@ -4,14 +4,13 @@
     <el-menu
       :default-active="$route.path"
       class="el-menu-vertical-demo"
-      text-color="#000"
+      text-color="#ffffff"
       router
+      background-color="transparent"
       active-text-color="#ffd04b"
     >
       <template v-for="item in routes">
-        <template
-          v-if="item.children && item.children.length > 1"
-        >
+        <template v-if="item.children && item.children.length > 1">
           <el-submenu :index="item.path" :key="item.path">
             <template slot="title">
               <i class="el-icon-location"></i>
@@ -29,24 +28,23 @@
                   >
                 </el-submenu>
               </template>
-              <el-menu-item-group v-else :key="second.path">
-                <el-menu-item :index="second.path">
+              <template v-else>
+                <el-menu-item :index="second.path" :key="second.path">
                   {{ second.meta.title }}
                 </el-menu-item>
-              </el-menu-item-group>
+              </template>
             </template>
           </el-submenu>
         </template>
-        <router-link
+
+        <el-menu-item
           v-else-if="!item.hidden"
-          :key="item.path"
-          :to="item.path"
+          :index="item.children[0].path"
+          :key="item.children[0].path"
         >
-          <el-menu-item :index="item.path">
-            <i class="el-icon-menu"></i>
-            <span slot="title">{{ item.meta.title }}</span>
-          </el-menu-item>
-        </router-link>
+          <i class="el-icon-menu"></i>
+          <span slot="title">{{ item.meta.title }}</span>
+        </el-menu-item>
       </template>
     </el-menu>
   </div>
@@ -58,17 +56,20 @@ export default {
   data() {
     return {};
   },
-  created() {},
+  created() {
+    console.log(this.routes);
+  },
   computed: {
     routes() {
       return this.$router.options.routes;
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .nav-menu {
+  overflow-x: hidden;
   height: 100%;
   background-image: linear-gradient(
     -225deg,
@@ -77,7 +78,54 @@ export default {
     #eca1fe 100%
   );
 }
+.nav-menu::-webkit-scrollbar {
+  width: 0px;
+}
 .el-menu-vertical-demo {
   overflow: hidden;
+  padding-right: 2px;
+}
+.el-menu-item {
+  margin: 4px;
+  height: 48px;
+  line-height: 48px;
+  i {
+    color: #ffffff;
+  }
+}
+>>> .el-submenu__title {
+  height: 48px;
+  line-height: 48px;
+  i {
+    color: #ffffff;
+  }
+}
+.el-menu-item:hover {
+  background-color: #ffffff !important;
+  color: #5271c4 !important;
+  font-weight: 700;
+  border-radius: 4px;
+  animation: border-color .3s,background-color .3s,color .3s ease-in-out;
+  i {
+    color: #5271c4 !important;
+  }
+}
+>>> .el-submenu__title:hover {
+  background-color: #ffffff !important;
+  color: #5271c4 !important;
+  font-weight: 600;
+  border-radius: 4px;
+  i {
+    color: #5271c4 !important;
+  }
+}
+.el-menu-item.is-active {
+  background-color: #ffffff !important;
+  color: #5271c4 !important;
+  font-weight: 700;
+  border-radius: 4px;
+  i {
+    color: #5271c4 !important;
+  }
 }
 </style>
