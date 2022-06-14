@@ -54,9 +54,9 @@ export default {
   height: 100vh;
   width: 100%;
   .nav-aside {
-    width: 200px;
     height: 100%;
     overflow: hidden;
+    box-shadow: 5px 1px 5px 0px #e7e7e7;
     box-sizing: border-box;
   }
   .main {

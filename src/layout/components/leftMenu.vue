@@ -1,11 +1,19 @@
 <template>
-  <div class="nav-menu">
+  <div :class="!isCollapse ? 'nav-menu' : 'menu-active'">
+    <div class="zhankai">
+      <span class="titles" v-show="!isCollapse">WeiOne后台管理系统</span>
+      <span :class="!isCollapse ? 'svgs' : 'svgs svg-active'" @click="isShow"
+        ><icon-svg icon-class="zhankai"></icon-svg
+      ></span>
+    </div>
     <!-- 菜单组件 -->
     <el-menu
       :default-active="$route.path"
+      :collapse-transition="false"
       class="el-menu-vertical-demo"
       text-color="#ffffff"
       router
+      :collapse="isCollapse"
       background-color="transparent"
       active-text-color="#ffd04b"
     >
@@ -51,13 +59,23 @@
 </template>
 
 <script>
+import IconSvg from "../../components/Icon-svg.vue";
 export default {
+  components: { IconSvg },
   name: "navMenu",
   data() {
-    return {};
+    return {
+      isCollapse: false,
+    };
   },
   created() {
     console.log(this.routes);
+  },
+  methods: {
+    isShow() {
+      this.isCollapse = !this.isCollapse;
+      console.log(this.isCollapse);
+    },
   },
   computed: {
     routes() {
@@ -69,6 +87,8 @@ export default {
 
 <style lang="scss" scoped>
 .nav-menu {
+  width: 200px;
+  position: relative;
   overflow-x: hidden;
   height: 100%;
   background-image: linear-gradient(
@@ -77,8 +97,33 @@ export default {
     #b19fff 48%,
     #eca1fe 100%
   );
+  transition: width 0.28s;
+  -webkit-transition: width 0.15s;
+  -moz-transition: width 0.15s;
+  -webkit-transition: width 0.15s;
+  -o-transition: width 0.15s;
+}
+.menu-active {
+  width: 64px;
+  position: relative;
+  overflow-x: hidden;
+  height: 100%;
+  background-image: linear-gradient(
+    -225deg,
+    #5271c4 0%,
+    #b19fff 48%,
+    #eca1fe 100%
+  );
+  transition: width 0.28s;
+  -webkit-transition: width 0.15s;
+  -moz-transition: width 0.15s;
+  -webkit-transition: width 0.15s;
+  -o-transition: width 0.15s;
 }
 .nav-menu::-webkit-scrollbar {
+  width: 0px;
+}
+.menu-active::-webkit-scrollbar {
   width: 0px;
 }
 .el-menu-vertical-demo {
@@ -93,9 +138,15 @@ export default {
     color: #ffffff;
   }
 }
+.el-menu {
+  border: none;
+}
+
 >>> .el-submenu__title {
   height: 48px;
   line-height: 48px;
+  margin: 4px;
+  padding-left: 16px !important;
   i {
     color: #ffffff;
   }
@@ -105,7 +156,7 @@ export default {
   color: #5271c4 !important;
   font-weight: 700;
   border-radius: 4px;
-  animation: border-color .3s,background-color .3s,color .3s ease-in-out;
+  animation: border-color 0.3s, background-color 0.3s, color 0.3s ease-in-out;
   i {
     color: #5271c4 !important;
   }
@@ -127,5 +178,66 @@ export default {
   i {
     color: #5271c4 !important;
   }
+}
+.zhankai {
+  .titles {
+    font-size: 14px;
+    font-family: KaiTi;
+    margin-right: 15px;
+  }
+  .svgs {
+    font-size: 20px;
+    line-height: 50px;
+    display: inline-block;
+    animation: rotate-901-cw 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  @keyframes rotate-901-cw {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  .svg-active {
+    animation: rotate-90-cw 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+  @keyframes rotate-90-cw {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+    100% {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+  }
+  position: sticky;
+  width: 100%;
+  right: 0;
+  top: 0;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  color: #fff;
+
+  font-weight: 700;
+}
+</style>
+<style lang="scss">
+.el-menu--popup {
+  background-image: linear-gradient(
+    -225deg,
+    #5271c4 0%,
+    #b19fff 48%,
+    #eca1fe 100%
+  );
+  border-radius: 5px;
+}
+.el-tooltip{
+  padding: 0 16px !important;
 }
 </style>
