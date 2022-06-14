@@ -16,15 +16,15 @@ export default {};
 .but-col {
   position: relative;
   display: inline-block;
-  /* padding: 10px 30px; */
+  padding: 2px;
   color: #03e9f4;
   font-size: 16px;
   text-decoration: none;
   text-transform: uppercase;
   overflow: hidden;
   transition: 0.5s;
-  margin-top: 40px;
   letter-spacing: 4px;
+  cursor: pointer;
 }
 
 /* .but-col:hover {

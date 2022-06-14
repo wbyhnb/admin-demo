@@ -5,7 +5,7 @@
       <div class="main-header">
         <Header />
         <!-- 推出登录 -->
-        <el-button type="primary" @click="logout">退出登录</el-button>
+        <!-- <el-button type="primary" @click="logout">退出登录</el-button> -->
       </div>
       <div class="main-button">
         <TagPush />
