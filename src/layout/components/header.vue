@@ -1,5 +1,11 @@
 <template>
   <div class="headers">
+    <div class="icons" v-if="!isFullscreen" @click="toggleFullscreen()">
+      <icon-svg icon-class="quanpingmu" class="svg1" />
+    </div>
+    <div class="icons" v-else @click="toggleFullscreen()">
+      <icon-svg icon-class="tuichuquanping" class="svg1" />
+    </div>
     <div class="icons" @click="drawerEdit = true">
       <icon-svg icon-class="31shezhi" class="svg" />
     </div>
@@ -12,7 +18,7 @@
       ></el-avatar>
     </but-col>
     <el-drawer
-    class="edit-drawer"
+      class="edit-drawer"
       :size="'25%'"
       :visible.sync="drawerEdit"
       :close-on-press-escape="true"
@@ -20,26 +26,44 @@
       :withHeader="false"
       :modal="false"
     >
-      <h1><icon-svg icon-class="31shezhi"  /> 系统设置</h1>
+      <h1><icon-svg icon-class="31shezhi" /> 系统设置</h1>
     </el-drawer>
   </div>
 </template>
 
 <script>
-import butCol from "../../components/but-col.vue";
-import IconSvg from "../../components/Icon-svg.vue";
+import screenfull from "screenfull";
 export default {
-  components: { butCol, IconSvg },
   data() {
     return {
-        drawerEdit: false,
-        direction: 'rtl',
+      drawerEdit: false,
+      direction: "rtl",
+      isFullscreen: false,
     };
+  },
+  mounted() {
+   window.onresize = () => {
+      this.isFullscreen = screenfull.isFullscreen
+    }
   },
   computed: {
     userInfo() {
       return this.$store.state.user.userInfo;
     },
+  },
+  methods: {
+    // 切换全屏方法
+    toggleFullscreen () {
+      if(!screenfull.isEnabled){     //判断一下浏览器是否支持全屏显示
+        this.$message({
+          message:'浏览器不能全屏',
+          type:'warning'
+        })
+        return false
+      }
+      screenfull.toggle()
+    }
+
   },
 };
 </script>
@@ -61,14 +85,18 @@ export default {
   .icons {
     cursor: pointer;
     margin-right: 15px;
+    .svg1 {
+      font-size: 25px;
+      color: #ffffff;
+    }
     .svg {
       font-size: 30px;
       color: #ffffff;
     }
   }
-  >>>.el-drawer{
+  >>> .el-drawer {
     padding: 20px;
-border-radius: 4px 0 0 4px !important;
+    border-radius: 4px 0 0 4px !important;
   }
 }
 </style>
