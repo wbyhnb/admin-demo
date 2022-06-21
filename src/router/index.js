@@ -10,7 +10,8 @@ export const  routes= [
       component: Layout,
       redirect: "/home",
       meta: {
-        title: "首页"
+        title: "首页",
+        icon:"shouye-shouye"
       },
       children: [
         {
@@ -20,7 +21,8 @@ export const  routes= [
           component: () => import("@/views/home"),
           meta: {
             requireAuth: true,
-            title: "首页"
+            title: "首页",
+            icon:"shouye-shouye"
           }
         }
       ]
@@ -32,7 +34,8 @@ export const  routes= [
       component: Layout,
       redirect: "/document/index",
       meta: {
-        title: "文档"
+        title: "文档",
+        icon:"wendang"
       },
       children: [
         {
@@ -42,7 +45,8 @@ export const  routes= [
           component: () => import("@/views/document"),
           meta: {
             requireAuth: true,
-            title: "文档"
+            title: "文档",
+            icon:"wendang"
           }
         }
       ]

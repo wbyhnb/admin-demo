@@ -14,7 +14,8 @@ export default {
             component: "Layout",
             redirect: "/icon/index",
             meta: {
-              title: "图标"
+              title: "图标",
+              icon: "tubiao"
             },
             children: [
               {
@@ -24,7 +25,8 @@ export default {
                 component: "icons",
                 meta: {
                   requireAuth: true,
-                  title: "图标"
+                  title: "图标",
+                  icon: "tubiao"
                 }
               }
             ]
@@ -37,7 +39,9 @@ export default {
             component: "Layout",
             redirect: "/component/index",
             meta: {
-              title: "组件"
+              title: "组件",
+              icon: "zujian",
+
             },
             children: [
               {
@@ -47,7 +51,19 @@ export default {
                 component: "component",
                 meta: {
                   requireAuth: true,
-                  title: "组件"
+                  title: "组件",
+                  icon: "zujian"
+                }
+              },
+              {
+                path: "/component/button",
+                name: "Button",
+                hidden: false,
+                component: "component/button",
+                meta: {
+                  requireAuth: true,
+                  title: "button组件",
+                  icon: "zujian"
                 }
               }
             ]
@@ -60,7 +76,8 @@ export default {
             component: "Layout",
             redirect: "/editor/index",
             meta: {
-              title: "富文本"
+              title: "富文本",
+              icon: "fuwenben"
             },
             children: [
               {
@@ -70,7 +87,8 @@ export default {
                 component: "editor/tinymce",
                 meta: {
                   requireAuth: true,
-                  title: "tinymce富文本"
+                  title: "tinymce富文本",
+                  icon: "fuwenben"
                 }
               },
               {
@@ -80,7 +98,8 @@ export default {
                 component: "editor/baidu",
                 meta: {
                   requireAuth: true,
-                  title: "百度富文本"
+                  title: "百度富文本",
+
                 }
               },
             ]
