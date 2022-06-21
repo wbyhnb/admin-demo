@@ -104,6 +104,28 @@ export default {
               },
             ]
           },
+          //表格
+          {
+            path:"/table",
+            name:"Table",
+            hidden: false,
+            component: "Layout",
+            redirect: "/table/index",
+            meta:{
+              title:"表格"
+            },
+            children:[
+              {
+                path:"/table/index",
+                name:"TableIndex",
+                hidden: false,
+                component: "table",
+                meta: {
+                  title:"表格"
+                }
+              }
+            ]
+          },
           {
             path: "/user",
             hidden: false,

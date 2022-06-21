@@ -5,7 +5,7 @@
   "author": "BIYUWEN <wbyhnb1314@163.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --host --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
@@ -17,11 +17,13 @@
     "gsap": "^3.10.4",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
+    "markdown-it-vue": "^1.1.7",
     "mockjs": "^1.1.0",
     "moment": "^2.29.3",
     "nprogress": "^0.2.0",
     "qs": "^6.10.5",
     "screenfull": "^5.0.0",
+    "text-loader": "^0.0.1",
     "tinymce": "^5.10.3",
     "vue": "^2.5.2",
     "vue-amap": "^0.5.10",
