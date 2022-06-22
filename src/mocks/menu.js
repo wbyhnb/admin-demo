@@ -102,6 +102,17 @@ export default {
                   icon:'fuwenben'
                 }
               },
+              {
+                path:'/editor/quillEditor',
+                name:'quillEditor',
+                hidden:false,
+                component:'editor/quillEditor',
+                meta:{
+                  requireAuth:true,
+                  title:'quillEditor',
+                  icon:'fuwenben'
+                }
+              },
 
               {
                 path: "/editor/baidu",
