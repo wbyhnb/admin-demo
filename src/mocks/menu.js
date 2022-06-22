@@ -51,7 +51,7 @@ export default {
                 component: "component",
                 meta: {
                   requireAuth: true,
-                  title: "组件",
+                  title: "input组件",
                   icon: "zujian"
                 }
               },
@@ -74,23 +74,35 @@ export default {
             name: "Editor",
             hidden: false,
             component: "Layout",
-            redirect: "/editor/index",
+            redirect: "/editor/tinymce",
             meta: {
               title: "富文本",
               icon: "fuwenben"
             },
             children: [
               {
-                path: "/editor/index",
+                path: "/editor/tinymce",
                 name: "EditorIndex",
                 hidden: false,
                 component: "editor/tinymce",
                 meta: {
                   requireAuth: true,
-                  title: "tinymce富文本",
+                  title: "tinymce",
                   icon: "fuwenben"
                 }
               },
+              {
+                path:'/editor/wangEditor',
+                name:'wangEditor',
+                hidden:false,
+                component:'editor/wangEditor',
+                meta:{
+                  requireAuth:true,
+                  title:'wangEditor',
+                  icon:'fuwenben'
+                }
+              },
+
               {
                 path: "/editor/baidu",
                 name: "EditorBaidu",
@@ -98,7 +110,7 @@ export default {
                 component: "editor/baidu",
                 meta: {
                   requireAuth: true,
-                  title: "百度富文本",
+                  title: "百度",
 
                 }
               },

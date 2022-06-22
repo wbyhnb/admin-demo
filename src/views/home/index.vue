@@ -295,12 +295,10 @@ export default {
     //获取古诗词
     async getGusi() {
       await api.getPoetry().then((res) => {
-        console.log(res);
         this.poetry = res.data.data;
       });
       //获取励志
       await api.getLizhi().then((res) => {
-        console.log(res);
         this.lizhi = res.data.data;
       });
       //毒鸡汤
@@ -325,7 +323,6 @@ export default {
     //获取今日信息
     getData() {
       api.getData(this.yearday).then((res) => {
-        console.log(res);
         this.dayInfo = res.data.data;
       });
     },
@@ -360,7 +357,6 @@ export default {
         str += arr[num];
       }
       this.color = str;
-      console.log(str);
     },
   },
   beforeDestroy() {

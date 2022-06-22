@@ -61,7 +61,6 @@ export default {
   watch: {
     $route(to, from) {
       if (to.path != "/home") {
-        console.log(to.path);
         if (!this.fillNames.includes(`${from.fullPath}`)) {
           this.fillNames.push(from.fullPath);
         }
@@ -74,9 +73,6 @@ export default {
             fill: from.fullPath,
           });
         } else return false;
-        console.log(this.tagNames);
-        console.log(this.tagList);
-        console.log(this.fillNames);
       }
     },
   },

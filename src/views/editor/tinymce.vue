@@ -10,7 +10,7 @@
 export default {
   data() {
     return {
-      content: "",
+      content: "欢迎使用Tinymce富文本",
     };
   },
   components: {
