@@ -121,7 +121,7 @@ export default {
                 component: "editor/baidu",
                 meta: {
                   requireAuth: true,
-                  title: "百度",
+                  title: "ueditor",
 
                 }
               },
