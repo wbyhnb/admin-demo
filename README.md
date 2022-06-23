@@ -1,21 +1,15 @@
-# vue-admin
+# Weione后台管理系统
+🎉✨🌹👍 基于vue2+element-ui使用mock模拟数据
+>注：此项目为新手入门项目(¬‿¬)
+## 项目截图
 
-> A Vue.js project
 
-## Build Setup
+## 启动命令
 
 ``` bash
-# install dependencies
+# 下载依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 运行locahost:9000
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
-
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
