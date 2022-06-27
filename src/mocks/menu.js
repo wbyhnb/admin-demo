@@ -40,8 +40,7 @@ export default {
             redirect: "/component/index",
             meta: {
               title: "组件",
-              icon: "zujian",
-
+              icon: "zujian"
             },
             children: [
               {
@@ -52,7 +51,7 @@ export default {
                 meta: {
                   requireAuth: true,
                   title: "input组件",
-                  icon: "zujian"
+                  icon: "input1"
                 }
               },
               {
@@ -63,7 +62,7 @@ export default {
                 meta: {
                   requireAuth: true,
                   title: "button组件",
-                  icon: "zujian"
+                  icon: "anniu"
                 }
               }
             ]
@@ -92,25 +91,25 @@ export default {
                 }
               },
               {
-                path:'/editor/wangEditor',
-                name:'wangEditor',
-                hidden:false,
-                component:'editor/wangEditor',
-                meta:{
-                  requireAuth:true,
-                  title:'wangEditor',
-                  icon:'fuwenben'
+                path: "/editor/wangEditor",
+                name: "wangEditor",
+                hidden: false,
+                component: "editor/wangEditor",
+                meta: {
+                  requireAuth: true,
+                  title: "wangEditor",
+                  icon: "aliwangwang"
                 }
               },
               {
-                path:'/editor/quillEditor',
-                name:'quillEditor',
-                hidden:false,
-                component:'editor/quillEditor',
-                meta:{
-                  requireAuth:true,
-                  title:'quillEditor',
-                  icon:'fuwenben'
+                path: "/editor/quillEditor",
+                name: "quillEditor",
+                hidden: false,
+                component: "editor/quillEditor",
+                meta: {
+                  requireAuth: true,
+                  title: "quillEditor",
+                  icon: "quill-pen-line"
                 }
               },
 
@@ -122,29 +121,56 @@ export default {
                 meta: {
                   requireAuth: true,
                   title: "ueditor",
-
+                  icon: "BaiDu"
                 }
-              },
+              }
+            ]
+          },
+          {
+            path: "/markdown",
+            name: "markdown",
+            hidden: false,
+            component: "Layout",
+            redirect: "/markdown/index",
+            meta: {
+              requireAuth: true,
+              title: "markdown编辑器",
+              icon: "markdown"
+            },
+            children:[
+              {
+                path: "/markdown/index",
+                name: "markdownIndex",
+                hidden: false,
+                component: "markdown/index",
+                meta: {
+                  requireAuth: true,
+                  title: "markdown编译器",
+                  icon: "markdown"
+                }
+              }
             ]
           },
           //表格
           {
-            path:"/table",
-            name:"Table",
+            path: "/table",
+            name: "Table",
             hidden: false,
             component: "Layout",
             redirect: "/table/index",
-            meta:{
-              title:"表格"
+            meta: {
+              title: "表格",
+              icon: "biaoge1"
             },
-            children:[
+            children: [
               {
-                path:"/table/index",
-                name:"TableIndex",
+                path: "/table/index",
+                name: "TableIndex",
                 hidden: false,
                 component: "table",
                 meta: {
-                  title:"表格"
+                  title: "表格",
+                  icon: "biaoge1"
                 }
               }
             ]

@@ -4,7 +4,12 @@
       class="icons search"
       :class="isSearch ? 'search_active' : 'search_actives'"
     >
-      <el-input v-model="keyword" class="inp-active" />
+      <el-autocomplete
+        v-model="keyword"
+        class="inp-active"
+        :fetch-suggestions="querySearchAsync"
+        @select="handleSelect"
+      />
       <div class="" @click="Search">
         <icon-svg icon-class="sousuo" class="svg1" />
       </div>
@@ -18,7 +23,7 @@
     <div class="icons" @click="drawerEdit = true">
       <icon-svg icon-class="31shezhi" class="svg" />
     </div>
-    <el-dropdown trigger="click" :hide-on-click="false" >
+    <el-dropdown trigger="click" :hide-on-click="false">
       <span class="el-dropdown-link">
         <but-col style="width: 40px; height: 40px">
           <el-avatar
@@ -31,7 +36,9 @@
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>个人中心</el-dropdown-item>
-        <el-dropdown-item><span  @click="logout">退出登录</span> </el-dropdown-item>
+        <el-dropdown-item
+          ><span @click="logout">退出登录</span>
+        </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
 
@@ -59,13 +66,17 @@ export default {
       direction: "rtl",
       isFullscreen: false,
       isSearch: false,
-      keyword: ""
+      keyword: "",
+      restaurants: [],
+      state: "",
+      timeout: null
     };
   },
   mounted() {
     window.onresize = () => {
       this.isFullscreen = screenfull.isFullscreen;
     };
+    this.restaurants = this.loadAll();
   },
   computed: {
     userInfo() {
@@ -73,11 +84,47 @@ export default {
     }
   },
   methods: {
+    // 搜索数据
+    loadAll() {
+      const routers = this.$router.options.routes;
+      const dataList = [];
+      routers.map(item => {
+        if (item.children && !item.hidden) {
+          dataList.push(...item.children);
+        }
+      });
+     dataList.map(item => {
+        item.value = item.meta.title;
+      });
+      return dataList;
+    },
+    //搜索动画
     Search() {
       this.isSearch = !this.isSearch;
     },
+    //点击切换路由
+    handleSelect(item) {
+     this.$router.push({ path: item.path });
+    },
+    querySearchAsync(queryString, cb) {
+      var restaurants = this.restaurants;
+      var results = queryString
+        ? restaurants.filter(this.createStateFilter(queryString))
+        : restaurants;
+
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => {
+        cb(results);
+      }, 100 * Math.random());
+    },
+    createStateFilter(queryString) {
+      return state => {
+        return (
+          state.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+        );
+      };
+    },
     logout() {
-      console.log(123);
       this.$confirm("确定退出登录?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
@@ -85,7 +132,7 @@ export default {
       }).then(() => {
         removeToken();
         this.$router.replace("/login");
-        // location.reload();
+        // location.reload();//刷新页面方法
       });
     },
     // 切换全屏方法

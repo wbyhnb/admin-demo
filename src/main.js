@@ -12,7 +12,10 @@ import "@/router/permission";
 import IconSvg from "@/components/Icon-svg";
 import textOver from "@/components/text-over";
 import butCol from "@/components/but-col";
-
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
+Vue.use(mavonEditor)
 Vue.component("icon-svg", IconSvg);
 Vue.component("text-over", textOver);
 Vue.component("but-col", butCol);

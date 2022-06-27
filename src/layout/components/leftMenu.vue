@@ -7,28 +7,53 @@
       </span>
     </div>
     <!-- 菜单组件 -->
-    <el-menu :default-active="$route.path" :collapse-transition="false" class="el-menu-vertical-demo"
-      text-color="#ffffff" router :collapse="isCollapse" background-color="transparent" active-text-color="#ffd04b">
+    <el-menu
+      :default-active="$route.path"
+      :collapse-transition="false"
+      class="el-menu-vertical-demo"
+      text-color="#ffffff"
+      router
+      :collapse="isCollapse"
+      background-color="transparent"
+      active-text-color="#ffd04b"
+    >
       <template v-for="item in routes">
         <template v-if="item.children && item.children.length > 1">
           <el-submenu :index="item.path" :key="item.path">
             <template slot="title">
-              <icon-svg v-if="item.meta.icon" :icon-class="item.meta.icon" class="svg" />
+              <icon-svg
+                v-if="item.meta.icon"
+                :icon-class="item.meta.icon"
+                class="svg"
+              />
               <i class="el-icon-menu" v-else></i>
               <span>{{ item.meta.title }}</span>
             </template>
             <template v-for="second in item.children">
               <template v-if="second.children">
-                <el-submenu v-for="child in second.children" :key="child.path" :index="child.path">
-                  <icon-svg v-if="child.meta.icon" :icon-class="child.meta.icon" class="svg" />
+                <el-submenu
+                  v-for="child in second.children"
+                  :key="child.path"
+                  :index="child.path"
+                >
+                  <icon-svg
+                    v-if="child.meta.icon"
+                    :icon-class="child.meta.icon"
+                    class="svg"
+                  />
                   <i class="el-icon-menu" v-else></i>
                   <el-menu-item :index="child.path">
-                    {{ second.meta.title }}</el-menu-item>
+                    {{ second.meta.title }}</el-menu-item
+                  >
                 </el-submenu>
               </template>
               <template v-else>
                 <el-menu-item :index="second.path" :key="second.path">
-                  <icon-svg v-if="second.meta.icon" :icon-class="second.meta.icon" class="svg" />
+                  <icon-svg
+                    v-if="second.meta.icon"
+                    :icon-class="second.meta.icon"
+                    class="svg"
+                  />
                   <i class="el-icon-menu" v-else></i>
                   {{ second.meta.title }}
                 </el-menu-item>
@@ -37,8 +62,16 @@
           </el-submenu>
         </template>
 
-        <el-menu-item v-else-if="!item.hidden" :index="item.children[0].path" :key="item.children[0].path">
-          <icon-svg v-if="item.meta.icon" :icon-class="item.meta.icon" class="svg" />
+        <el-menu-item
+          v-else-if="!item.hidden"
+          :index="item.children[0].path"
+          :key="item.children[0].path"
+        >
+          <icon-svg
+            v-if="item.meta.icon"
+            :icon-class="item.meta.icon"
+            class="svg"
+          />
           <i class="el-icon-menu" v-else></i>
           <span slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
@@ -52,7 +85,7 @@ export default {
   name: "navMenu",
   data() {
     return {
-      isCollapse: false,
+      isCollapse: false
     };
   },
   created() {
@@ -62,13 +95,13 @@ export default {
     isShow() {
       this.isCollapse = !this.isCollapse;
       console.log(this.isCollapse);
-    },
+    }
   },
   computed: {
     routes() {
       return this.$router.options.routes;
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -85,10 +118,12 @@ export default {
   position: relative;
   overflow-x: hidden;
   height: 100%;
-  background-image: linear-gradient(-225deg,
-      #5271c4 0%,
-      #b19fff 48%,
-      #eca1fe 100%);
+  background-image: linear-gradient(
+    -225deg,
+    #5271c4 0%,
+    #b19fff 48%,
+    #eca1fe 100%
+  );
   transition: width 0.28s;
   -webkit-transition: width 0.15s;
   -moz-transition: width 0.15s;
@@ -101,10 +136,12 @@ export default {
   position: relative;
   overflow-x: hidden;
   height: 100%;
-  background-image: linear-gradient(-225deg,
-      #5271c4 0%,
-      #b19fff 48%,
-      #eca1fe 100%);
+  background-image: linear-gradient(
+    -225deg,
+    #5271c4 0%,
+    #b19fff 48%,
+    #eca1fe 100%
+  );
   transition: width 0.28s;
   -webkit-transition: width 0.15s;
   -moz-transition: width 0.15s;
@@ -129,6 +166,8 @@ export default {
   margin: 4px;
   height: 48px;
   line-height: 48px;
+  display: flex;
+  align-items: center;
 
   i {
     color: #ffffff;
@@ -139,7 +178,7 @@ export default {
   border: none;
 }
 
->>>.el-submenu__title {
+>>> .el-submenu__title {
   height: 48px;
   line-height: 48px;
   margin: 4px;
@@ -162,7 +201,7 @@ export default {
   }
 }
 
->>>.el-submenu__title:hover {
+>>> .el-submenu__title:hover {
   background-color: #ffffff !important;
   color: #5271c4 !important;
   font-weight: 600;
@@ -241,10 +280,12 @@ export default {
 </style>
 <style lang="scss">
 .el-menu--popup {
-  background-image: linear-gradient(-225deg,
-      #5271c4 0%,
-      #b19fff 48%,
-      #eca1fe 100%);
+  background-image: linear-gradient(
+    -225deg,
+    #5271c4 0%,
+    #b19fff 48%,
+    #eca1fe 100%
+  );
   border-radius: 5px;
 }
 

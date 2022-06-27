@@ -11,7 +11,16 @@ section {
   /* linear-gradient() 函数用于创建一个表示两种或多种颜色线性渐变的图片 */
   background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
 }
-
+.login_main{
+  position: relative;
+}
+h1{
+  position: absolute ;
+  top: 20px;
+  left: 20px;
+  color: rgb(242 110 182);
+  z-index: 9;
+}
 /* 背景颜色 */
 section .color {
   /* 绝对定位 */
@@ -242,4 +251,25 @@ section .color:nth-child(3) {
   color: #fff;
   font-weight: 600;
   text-decoration: none;
+}
+.bottom_layer{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bottom_layer p a{
+  color:#bbb;
+  font-size: 12px;
+  font-family: '微软雅黑';
+  cursor: pointer;
+  margin-right: 20px;
+}
+.bottom_layer p a:hover{
+  color: rgb(238, 45, 158);
+
 }

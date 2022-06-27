@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <div class="login_main">
+    <h1>WeiOne后台管理系统</h1>
     <section>
+      
       <!-- 背景颜色 -->
       <div class="color"></div>
       <div class="color"></div>
@@ -15,6 +17,7 @@
         <!-- 登录框 -->
         <div class="container">
           <div class="form">
+            
             <h2>登录</h2>
             <form>
               <div class="inputBox">
@@ -32,7 +35,7 @@
                 />
               </div>
               <div class="inputBox">
-                <button @click="Logins">登录</button>
+                <button @click.enter="Logins">登录</button>
               </div>
             </form>
             <div class="">
@@ -43,6 +46,11 @@
         </div>
       </div>
     </section>
+    <div class="bottom_layer">
+      <p><a href="https://github.com/wbyhnb/admin-demo" target="_blank">关于我们</a> </p>
+      <p><a href="https://github.com/wbyhnb/admin-demo" target="_blank">帮助中心</a></p>
+      <p><a href="https://github.com/wbyhnb/admin-demo" target="_blank">@2022&emsp;WeiOne</a></p>
+    </div>
   </div>
 </template>
 
@@ -73,4 +81,4 @@ export default {
   }
 };
 </script>
-<style src="./index.css" />
+<style src="./index.css" scoped />
