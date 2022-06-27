@@ -9,7 +9,6 @@ import "nprogress/nprogress.css";
 import { getToken } from "@/utils/auth";
 import { getMenu, getUserinfo } from "@/api/logins";
 import Layout from "@/layout";
-import { Store } from "vuex";
 
 NProgress.configure({
   easing: "ease", // 动画方式
@@ -48,8 +47,8 @@ router.beforeEach((to, from, next) => {
       return false;
     } else {
       if (store.state.user.roles.length === 0) {
-        const token = getToken();
-        getUserinfo({ token: token }).then(res => {
+        const token = getToken();//获取token
+        getUserinfo({ token: token }).then(res => {//获取登录用户信息
           const data = res.data.data;
           store.commit("setUser", data);
           store.commit("setRoles", data.roles);
@@ -92,20 +91,22 @@ const constantRoutes = [
 ];
 
 async function getMenuList(to, next) {
-  const token = getToken();
-  const { data } = await getMenu({ token: token });
+  const token = getToken();//获取token
+  const { data } = await getMenu({ token: token });//获取动态路由菜单
   const routerList = filterRoutes(data.data);
+  //动态添加路由
   routerList.map(item => {
     router.options.routes.push(item);
     router.addRoute(item);
   });
+  //最后添加404
   constantRoutes.map(item => {
     router.options.routes.push(item);
     router.addRoute(item);
   });
   next({ ...to, replace: true });
 }
-function filterRoutes(data) {
+function filterRoutes(data) {//过滤路由数据
   data.map(item => {
     // console.log(item);
     if (item.component == "Layout") item.component = Layout;
@@ -116,12 +117,12 @@ function filterRoutes(data) {
   });
   return data;
 }
-
+//处理commponent的路径
 function loadView(view) {
   return resolve => require([`@/views/${view}`], resolve);
 }
 router.afterEach((to, from, next) => {
-  // 在即将进入新的页面组件前，关闭掉进度条
+  // 在即将进入新的页面组件前，关闭掉进度条,设置标题
   document.title = to.meta.title
   window.scrollTo(0, 0);
   NProgress.done();

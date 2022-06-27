@@ -8,8 +8,8 @@ import { getToken } from "@/utils/auth"; // 验权(从cookie中获取)
 const service = axios.create({
   // 公共接口
   baseURL: process.env.BASE_API,
-  // 超时时间 单位是ms，这里设置了5s的超时时间
-  timeout: 5 * 1000
+  // 超时时间 单位是ms，这里设置了10s的超时时间
+  timeout: 10 * 1000
 });
 // 2.请求拦截器
 service.interceptors.request.use(

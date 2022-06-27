@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { removeToken } from "@/utils/auth";
+
 export default {
   name: "layout",
   components: {
@@ -31,17 +31,7 @@ export default {
     return {};
   },
   methods: {
-    logout() {
-      this.$confirm("确定退出登录?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning"
-      }).then(() => {
-        removeToken();
-        this.$router.replace("/login");
-        location.reload();
-      });
-    }
+   
   },
   computed: {},
   created() {}

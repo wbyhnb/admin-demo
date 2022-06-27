@@ -20,40 +20,40 @@ export default {
   props: {
     codes: {
       type: String,
-      default: "",
+      default: ""
     },
     isLine: {
       type: Boolean,
-      default: true,
-    },
+      default: true
+    }
   },
   components: {
-    PrismEditor,
+    PrismEditor
   },
   created() {
-    console.log(this.codes, this.isLine);
+
   },
   data() {
     return {
       code: this.codes,
       readonly: this.isLine, // true为编辑模式， false只展示不可编辑
-      lineNumbers: true,
+      lineNumbers: true
     };
   },
   watch: {},
   methods: {
     highlighter(code) {
       return highlight(code, languages.js); //returns html
-    },
-  },
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 /* required class */
 .my-editor {
-  background: #2d2d2d;
-  color: #ccc;
+  background: #eaeaea;
+  color: rgb(234, 2, 2);
   font-family: Fira code, Fira Mono, Consolas, Menlo, Courier, monospace;
   font-size: 14px;
   line-height: 1.5;
