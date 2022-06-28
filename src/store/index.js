@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import tab from './tab'
 import user from './user'
 import createPersistedState from "vuex-persistedstate";
-
+import theme from '@/store/theme.js';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -16,7 +16,7 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    tab,user
+    tab,user,theme
   },
 
     

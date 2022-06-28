@@ -14,6 +14,8 @@ import textOver from "@/components/text-over";
 import butCol from "@/components/but-col";
 import mavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import '@/style/element-variables.scss'
+
 // use
 Vue.use(mavonEditor)
 Vue.component("icon-svg", IconSvg);
@@ -22,6 +24,7 @@ Vue.component("but-col", butCol);
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

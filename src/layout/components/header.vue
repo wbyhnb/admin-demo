@@ -51,7 +51,8 @@
       :withHeader="false"
       :modal="false"
     >
-      <h1><icon-svg icon-class="31shezhi" /> 系统设置</h1>
+    <leftEdit/>
+      
     </el-drawer>
   </div>
 </template>
@@ -71,6 +72,9 @@ export default {
       state: "",
       timeout: null
     };
+  },
+  components:{
+    leftEdit: () => import("./components/leftEdit"),
   },
   mounted() {
     window.onresize = () => {
