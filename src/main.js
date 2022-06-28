@@ -5,6 +5,7 @@ import App from "./App";
 import router from "./router";
 import store from "@/store";
 import "@/style/index.css";
+import '@/style/element-variables.scss';
 import ElementUI from "element-ui";
 import axios from "@/utils/request";
 import "@/mocks/index";
@@ -12,12 +13,13 @@ import "@/router/permission";
 import IconSvg from "@/components/Icon-svg";
 import textOver from "@/components/text-over";
 import butCol from "@/components/but-col";
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-import '@/style/element-variables.scss'
+
+import mavonEditor from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
+
 
 // use
-Vue.use(mavonEditor)
+Vue.use(mavonEditor);
 Vue.component("icon-svg", IconSvg);
 Vue.component("text-over", textOver);
 Vue.component("but-col", butCol);

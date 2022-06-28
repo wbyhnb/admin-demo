@@ -51,8 +51,7 @@
       :withHeader="false"
       :modal="false"
     >
-    <leftEdit/>
-      
+    <leftEdit ref="leftEdit"/>
     </el-drawer>
   </div>
 </template>

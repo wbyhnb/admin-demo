@@ -1,4 +1,3 @@
-import Cookie from "js-cookie";
 import createPersistedState from "vuex-persistedstate";
 export default {
   state: {

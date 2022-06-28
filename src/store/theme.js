@@ -1,7 +1,7 @@
 //引入element-variables文件，文件路径根据自己项目存放位置来
 import variables from '@/style/element-variables.scss'
 const state = {
-  theme: variables.theme
+  theme: variables.theme,//主题色
 }
 
 const getters = {

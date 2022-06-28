@@ -21,10 +21,9 @@
             <h2>登录</h2>
             <form>
               <div class="inputBox">
-                <el-input
+                <input
                   placeholder="账号"
                   v-model="dataForm.username"
-                  clearable
                 />
               </div>
               <div class="inputBox">
