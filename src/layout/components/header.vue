@@ -51,7 +51,7 @@
       :withHeader="false"
       :modal="false"
     >
-    <leftEdit ref="leftEdit"/>
+      <leftEdit  ref="leftEdit" />
     </el-drawer>
   </div>
 </template>
@@ -72,14 +72,27 @@ export default {
       timeout: null
     };
   },
-  components:{
-    leftEdit: () => import("./components/leftEdit"),
+  components: {
+    leftEdit: () => import("./components/leftEdit")
+  },
+  created() {
+    
   },
   mounted() {
     window.onresize = () => {
       this.isFullscreen = screenfull.isFullscreen;
     };
     this.restaurants = this.loadAll();
+    console.log(this.$store.state.theme.theme);
+    if (this.$store.state.theme.theme) {
+      this.$nextTick(() => {
+     this.$refs.leftEdit.add()
+      // this.$refs.leftEdit.changeColor(
+      //   this.$store.state.theme.theme,
+      //   this.$store.state.theme.theme
+      // );
+      });
+    }
   },
   computed: {
     userInfo() {
@@ -96,7 +109,7 @@ export default {
           dataList.push(...item.children);
         }
       });
-     dataList.map(item => {
+      dataList.map(item => {
         item.value = item.meta.title;
       });
       return dataList;
@@ -107,7 +120,7 @@ export default {
     },
     //点击切换路由
     handleSelect(item) {
-     this.$router.push({ path: item.path });
+      this.$router.push({ path: item.path });
     },
     querySearchAsync(queryString, cb) {
       var restaurants = this.restaurants;
