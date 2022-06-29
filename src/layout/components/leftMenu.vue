@@ -89,7 +89,6 @@ export default {
     };
   },
   created() {
-    console.log(this.routes);
   },
   methods: {
     isShow() {
@@ -106,6 +105,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/style/dynamic.scss';
 .svg {
   font-size: 20px;
   line-height: 48px;
@@ -118,9 +118,10 @@ export default {
   position: relative;
   overflow-x: hidden;
   height: 100%;
+  color: $leftColor;
   background-image: linear-gradient(
     -225deg,
-    #5271c4 0%,
+    $leftColor 0%,
     #b19fff 48%,
     #eca1fe 100%
   );

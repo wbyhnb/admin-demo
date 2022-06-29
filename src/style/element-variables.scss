@@ -1,11 +1,15 @@
+
 /* 改变主题色变量 */
-$--color-primary: #F56C6C;
+$--color-primary: #f56c6c;
+// $--color-primary-light: var(--primary-light, #00b8b8);
+// $--color-primary-dark: var(--primary-dark, #008c8c);
+// $--color-primary: var(--primary);
 
 /* 改变 icon 字体路径变量，必需 */
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import "~element-ui/packages/theme-chalk/src/index";
 
-:export {
-  theme: $--color-primary;
+:expotr{
+  theme: theme;
 }

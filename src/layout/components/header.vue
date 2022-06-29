@@ -20,7 +20,7 @@
     <div class="icons" v-else @click="toggleFullscreen()">
       <icon-svg icon-class="tuichuquanping" class="svg1" />
     </div>
-    <div class="icons" @click="drawerEdit = true">
+    <div class="icons" @click="drawerEdit">
       <icon-svg icon-class="31shezhi" class="svg" />
     </div>
     <el-dropdown trigger="click" :hide-on-click="false">
@@ -41,18 +41,7 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-
-    <el-drawer
-      class="edit-drawer"
-      :size="'25%'"
-      :visible.sync="drawerEdit"
-      :close-on-press-escape="true"
-      :direction="direction"
-      :withHeader="false"
-      :modal="false"
-    >
-      <leftEdit  ref="leftEdit" />
-    </el-drawer>
+      <RightEdit  ref="leftEdits" />
   </div>
 </template>
 
@@ -60,10 +49,11 @@
 import { removeToken } from "@/utils/auth";
 import screenfull from "screenfull";
 export default {
+  name: "headers",
   data() {
     return {
-      drawerEdit: false,
-      direction: "rtl",
+      // drawerEdit: false,
+      // direction: "rtl",
       isFullscreen: false,
       isSearch: false,
       keyword: "",
@@ -73,7 +63,7 @@ export default {
     };
   },
   components: {
-    leftEdit: () => import("./components/leftEdit")
+    RightEdit: () => import("./components/rightEdit")
   },
   created() {
     
@@ -83,16 +73,6 @@ export default {
       this.isFullscreen = screenfull.isFullscreen;
     };
     this.restaurants = this.loadAll();
-    console.log(this.$store.state.theme.theme);
-    if (this.$store.state.theme.theme) {
-      this.$nextTick(() => {
-     this.$refs.leftEdit.add()
-      // this.$refs.leftEdit.changeColor(
-      //   this.$store.state.theme.theme,
-      //   this.$store.state.theme.theme
-      // );
-      });
-    }
   },
   computed: {
     userInfo() {
@@ -100,6 +80,9 @@ export default {
     }
   },
   methods: {
+    drawerEdit() {
+      this.$refs.leftEdits.drawerEdit = true;
+    },
     // 搜索数据
     loadAll() {
       const routers = this.$router.options.routes;
@@ -168,6 +151,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/style/dynamic.scss';
 .headers {
   display: flex;
   justify-content: flex-end;
@@ -175,7 +159,7 @@ export default {
   height: 100%;
   background-image: linear-gradient(
     225deg,
-    #5271c4 0%,
+    $leftColor 0%,
     #b19fff 48%,
     #eca1fe 100%
   );
