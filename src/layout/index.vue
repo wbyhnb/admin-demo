@@ -1,17 +1,15 @@
 <template>
   <div id="layout">
-    <div class="nav-aside"><NavMenu /></div>
+    <div class="nav-aside" v-show="isLeftMenu"><NavMenu /></div>
     <div class="main">
       <div class="main-header">
         <Header />
-        <!-- 推出登录 -->
-        <!-- <el-button type="primary" @click="logout">退出登录</el-button> -->
       </div>
       <div class="main-button">
         <TagPush />
       </div>
       <div class="main-content">
-        <Main> </Main>
+        <Main />
       </div>
     </div>
   </div>
@@ -28,13 +26,18 @@ export default {
     Header: () => import("./components/header.vue"),
   },
   data() {
-    return {};
+    return {
+      isLeftMenu: this.$store.getters.leftMenu,
+    
+    };
   },
   methods: {
    
   },
   computed: {},
-  created() {}
+  created() {
+    console.log(this.$store.getters.leftMenu);
+  }
 };
 </script>
 

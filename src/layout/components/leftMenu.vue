@@ -27,7 +27,7 @@
                 class="svg"
               />
               <i class="el-icon-menu" v-else></i>
-              <span>{{ item.meta.title }}</span>
+              <span class="icon_span">{{ item.meta.title }}</span>
             </template>
             <template v-for="second in item.children">
               <template v-if="second.children">
@@ -43,7 +43,8 @@
                   />
                   <i class="el-icon-menu" v-else></i>
                   <el-menu-item :index="child.path">
-                    {{ second.meta.title }}</el-menu-item
+                   <span class="icon_span">{{ second.meta.title }}</span> 
+                    </el-menu-item
                   >
                 </el-submenu>
               </template>
@@ -55,7 +56,7 @@
                     class="svg"
                   />
                   <i class="el-icon-menu" v-else></i>
-                  {{ second.meta.title }}
+                 <span class="icon_span"> {{ second.meta.title }}</span>
                 </el-menu-item>
               </template>
             </template>
@@ -73,7 +74,7 @@
             class="svg"
           />
           <i class="el-icon-menu" v-else></i>
-          <span slot="title">{{ item.meta.title }}</span>
+          <span class="icon_span" slot="title">{{ item.meta.title }}</span>
         </el-menu-item>
       </template>
     </el-menu>
@@ -88,8 +89,7 @@ export default {
       isCollapse: false
     };
   },
-  created() {
-  },
+  created() {},
   methods: {
     isShow() {
       this.isCollapse = !this.isCollapse;
@@ -105,14 +105,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/style/dynamic.scss';
+@import "@/style/dynamic.scss";
 .svg {
   font-size: 20px;
   line-height: 48px;
-  margin-right: 5px;
-  margin-left: 3px;
-}
 
+}
+.icon_span{
+  margin-left: 10px;
+}
 .nav-menu {
   width: 200px;
   position: relative;
@@ -192,35 +193,35 @@ export default {
 
 .el-menu-item:hover {
   background-color: #ffffff !important;
-  color: #5271c4 !important;
+  color: $leftColor !important;
   font-weight: 700;
   border-radius: 4px;
   animation: border-color 0.3s, background-color 0.3s, color 0.3s ease-in-out;
 
   i {
-    color: #5271c4 !important;
+    color: $leftColor !important;
   }
 }
 
 >>> .el-submenu__title:hover {
   background-color: #ffffff !important;
-  color: #5271c4 !important;
+  color: $leftColor !important;
   font-weight: 600;
   border-radius: 4px;
 
   i {
-    color: #5271c4 !important;
+    color: $leftColor !important;
   }
 }
 
 .el-menu-item.is-active {
   background-color: #ffffff !important;
-  color: #5271c4 !important;
+  color: $leftColor !important;
   font-weight: 700;
   border-radius: 4px;
 
   i {
-    color: #5271c4 !important;
+    color: $leftColor !important;
   }
 }
 
@@ -278,19 +279,19 @@ export default {
 
   font-weight: 700;
 }
+>>>.el-tooltip {
+  padding: 0 18px !important;
+}
 </style>
 <style lang="scss">
+@import "@/style/dynamic.scss";
 .el-menu--popup {
   background-image: linear-gradient(
     -225deg,
-    #5271c4 0%,
+    $leftColor 0%,
     #b19fff 48%,
     #eca1fe 100%
   );
   border-radius: 5px;
-}
-
-.el-tooltip {
-  padding: 0 16px !important;
 }
 </style>

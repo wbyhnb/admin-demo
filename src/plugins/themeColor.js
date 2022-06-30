@@ -1,3 +1,7 @@
+/*
+**通过正则表达式替换css样式
+**修改 文件 node_modules\element-ui\lib\theme-chalk\index.css 的代码
+*/
 /**
  * 获取一系列 主题色
  * 入参：67c23a

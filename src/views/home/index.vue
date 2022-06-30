@@ -366,6 +366,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/style/dynamic.scss";
 .home {
   .user-info {
     height: 100%;
@@ -480,7 +481,7 @@ export default {
     height: 8px;
   }
   .joke-box::-webkit-scrollbar-thumb {
-    background: rgba(131, 131, 131, 0.394);
+    background: $leftColor;
     border-radius: 5px;
   }
   .head {
@@ -517,7 +518,7 @@ export default {
     }
     .hall-tag::-webkit-scrollbar-thumb {
       display: none;
-      background: rgba(131, 131, 131, 0.394);
+      background: $leftColor;
       border-radius: 5px;
     }
   }
