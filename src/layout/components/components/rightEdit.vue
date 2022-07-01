@@ -26,8 +26,20 @@
       <el-divider></el-divider>
       <h3>导航模式</h3>
       <div class="theme_nav">
-        <div class="item item_nav1" @click="isLeft(true)"></div>
-        <div class="item item_nav2" @click="isLeft(false)"></div>
+        <div
+          class="item item_nav1"
+          @click="isLeft(true)"
+          :class="leftMenu ? 'item_nav' : ''"
+        >
+          <span>✔</span>
+        </div>
+        <div
+          class="item item_nav2"
+          @click="isLeft(false)"
+          :class="leftMenu ? '' : 'item_nav'"
+        >
+          <span>✔</span>
+        </div>
       </div>
       <el-divider></el-divider>
       <h3>内容设置</h3>
@@ -52,7 +64,7 @@
         <div class="item">
           <div class="item_title">标签栏</div>
           <div class="item_content">
-            <el-switch v-model="isTagView"> </el-switch>
+            <el-switch v-model="isTagView" @change="isTag"> </el-switch>
           </div>
         </div>
       </div>
@@ -61,7 +73,7 @@
 </template>
 <script>
 import { updateThemeColor } from "@/plugins/themeColor.js";
-import{mapGetters}from'vuex'
+import { mapGetters } from "vuex";
 export default {
   name: "themePicker",
   data() {
@@ -84,12 +96,13 @@ export default {
       fontSize: 12,
       isLogo: false,
       isTagView: false,
-      isLeftMenu: true,
+      isLeftMenu: true
     };
   },
   created() {
-    this.theme = this.themeColor;
+    this.theme =  this.themeColor;
     this.isLeftMenu = this.leftMenu;
+    this.isTagView = this.tagView;
   },
   mounted() {},
   methods: {
@@ -99,13 +112,15 @@ export default {
     isLeft(isLeft) {
       this.$store.dispatch("setLeftMenu", isLeft);
     },
+    isTag(isTag) {
+      this.$store.dispatch("setTagView", isTag);
+    },
   },
   computed: {
-    ...mapGetters(['themeColor','leftMenu']),
+    ...mapGetters(["themeColor", "leftMenu", "tagView"])
   },
   watch: {
     theme(val) {
-      // console.log(val);
       this.$store.dispatch("setTheme", val);
       document.getElementsByTagName("body")[0].style.setProperty("--left", val);
       updateThemeColor(val);
@@ -118,15 +133,13 @@ export default {
 .theme-picker .el-color-picker__trigger {
   vertical-align: middle;
 }
->>>.el-drawer__body::-webkit-scrollbar{
+>>> .el-drawer__body::-webkit-scrollbar {
   width: 8px;
-
-  
 }
->>>.el-drawer__body::-webkit-scrollbar-thumb {
-      background: $leftColor;
-      border-radius: 5px;
-    }
+>>> .el-drawer__body::-webkit-scrollbar-thumb {
+  background: $leftColor;
+  border-radius: 5px;
+}
 .theme-picker-dropdown .el-color-dropdown__link-btn {
   display: none;
 }
@@ -175,6 +188,10 @@ h3::before {
   flex-wrap: wrap;
   align-items: center;
   .item {
+    span {
+      display: none;
+    }
+
     position: relative;
     width: 44px;
     height: 36px;
@@ -212,6 +229,17 @@ h3::before {
     width: 100%;
     background: $leftColor;
     height: 8px;
+  }
+  .item_nav {
+    span {
+      display: block;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      right: 0;
+      bottom: 0;
+      color: #000;
+    }
   }
 }
 .theme_content {

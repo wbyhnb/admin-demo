@@ -1,11 +1,11 @@
 <template>
   <div id="layout">
-    <div class="nav-aside" v-show="isLeftMenu"><NavMenu /></div>
+    <div class="nav-aside" v-if="leftMenu"><NavMenu /></div>
     <div class="main">
       <div class="main-header">
         <Header />
       </div>
-      <div class="main-button">
+      <div class="main-button" v-if="tagView">
         <TagPush />
       </div>
       <div class="main-content">
@@ -16,28 +16,26 @@
 </template>
 
 <script>
-
+import { mapGetters } from "vuex";
 export default {
   name: "layout",
   components: {
     NavMenu: () => import("./components/leftMenu.vue"),
     Main: () => import("./components/Main.vue"),
     TagPush: () => import("./components/tagMenu.vue"),
-    Header: () => import("./components/header.vue"),
+    Header: () => import("./components/header.vue")
   },
   data() {
     return {
-      isLeftMenu: this.$store.getters.leftMenu,
-    
     };
   },
-  methods: {
-   
+  methods: {},
+  computed: {
+    ...mapGetters(["leftMenu","tagView"])
   },
-  computed: {},
   created() {
-    console.log(this.$store.getters.leftMenu);
   }
+
 };
 </script>
 
@@ -56,7 +54,7 @@ export default {
     flex: 1;
     display: flex;
     flex-direction: column;
-      box-sizing: border-box;
+    box-sizing: border-box;
     overflow: hidden;
     .main-header {
       height: 50px;

@@ -93,7 +93,6 @@ export default {
   methods: {
     isShow() {
       this.isCollapse = !this.isCollapse;
-      console.log(this.isCollapse);
     }
   },
   computed: {

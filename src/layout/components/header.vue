@@ -1,51 +1,57 @@
 <template>
   <div class="headers">
-    <div
-      class="icons search"
-      :class="isSearch ? 'search_active' : 'search_actives'"
-    >
-      <el-autocomplete
-        v-model="keyword"
-        class="inp-active"
-        :fetch-suggestions="querySearchAsync"
-        @select="handleSelect"
-      />
-      <div class="" @click="Search">
-        <icon-svg icon-class="sousuo" class="svg1" />
+    <div class="headers_menu" >
+      <Menu v-if="!leftMenu"/>
+    </div>
+    <div class="headers_button">
+      <div
+        class="icons search"
+        :class="isSearch ? 'search_active' : 'search_actives'"
+      >
+        <el-autocomplete
+          v-model="keyword"
+          class="inp-active"
+          :fetch-suggestions="querySearchAsync"
+          @select="handleSelect"
+        />
+        <div class="" @click="Search">
+          <icon-svg icon-class="sousuo" class="svg1" />
+        </div>
       </div>
+      <div class="icons" v-if="!isFullscreen" @click="toggleFullscreen()">
+        <icon-svg icon-class="quanpingmu" class="svg1" />
+      </div>
+      <div class="icons" v-else @click="toggleFullscreen()">
+        <icon-svg icon-class="tuichuquanping" class="svg1" />
+      </div>
+      <div class="icons" @click="drawerEdit">
+        <icon-svg icon-class="31shezhi" class="svg" />
+      </div>
+      <el-dropdown trigger="click" :hide-on-click="false">
+        <span class="el-dropdown-link">
+          <but-col style="width: 40px; height: 40px">
+            <el-avatar
+              class="sub-title"
+              shape="square"
+              :size="40"
+              :src="userInfo.avatar"
+            ></el-avatar>
+          </but-col>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>个人中心</el-dropdown-item>
+          <el-dropdown-item
+            ><span @click="logout">退出登录</span>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+      <RightEdit ref="leftEdits" />
     </div>
-    <div class="icons" v-if="!isFullscreen" @click="toggleFullscreen()">
-      <icon-svg icon-class="quanpingmu" class="svg1" />
-    </div>
-    <div class="icons" v-else @click="toggleFullscreen()">
-      <icon-svg icon-class="tuichuquanping" class="svg1" />
-    </div>
-    <div class="icons" @click="drawerEdit">
-      <icon-svg icon-class="31shezhi" class="svg" />
-    </div>
-    <el-dropdown trigger="click" :hide-on-click="false">
-      <span class="el-dropdown-link">
-        <but-col style="width: 40px; height: 40px">
-          <el-avatar
-            class="sub-title"
-            shape="square"
-            :size="40"
-            :src="userInfo.avatar"
-          ></el-avatar>
-        </but-col>
-      </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>个人中心</el-dropdown-item>
-        <el-dropdown-item
-          ><span @click="logout">退出登录</span>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-      <RightEdit  ref="leftEdits" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import { removeToken } from "@/utils/auth";
 import screenfull from "screenfull";
 export default {
@@ -63,11 +69,10 @@ export default {
     };
   },
   components: {
-    RightEdit: () => import("./components/rightEdit")
+    RightEdit: () => import("./components/rightEdit"),
+    Menu: () => import("./components/menu")
   },
-  created() {
-    
-  },
+  created() {},
   mounted() {
     window.onresize = () => {
       this.isFullscreen = screenfull.isFullscreen;
@@ -75,8 +80,12 @@ export default {
     this.restaurants = this.loadAll();
   },
   computed: {
+    ...mapGetters(["themeColor", "leftMenu", "tagView"]),
     userInfo() {
       return this.$store.state.user.userInfo;
+    },
+    routes() {
+      return this.$router.options.routes;
     }
   },
   methods: {
@@ -151,10 +160,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/style/dynamic.scss';
+@import "@/style/dynamic.scss";
 .headers {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   background-image: linear-gradient(
@@ -165,7 +174,14 @@ export default {
   );
   padding: 0 20px;
   box-sizing: border-box;
-
+  .headers_menu{
+    height: 100%;
+  }
+  .headers_button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
   .icons {
     cursor: pointer;
     margin-right: 15px;

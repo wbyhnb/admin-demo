@@ -28,15 +28,15 @@ export default new Vuex.Store({
       // 存储的 key 的key值
       key: "store",
       //方法1:render
-      render(state) {
+      // render(state) {
         // 要存储的数据：本项目采用es6扩展运算符的方式存储了state中所有的数据
-        return { ...state };
+        // return { ...state };
         //需要存储其中的某些数据的话需要单独取出来
         // return {
         //只储存state中的assessmentData
         //assessmentData: val.assessmentData
         // }
-      },
+      // },
       // 方法2：用paths,数组里面填模块名，存储指定模块
       paths: ['theme']
     })

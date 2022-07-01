@@ -241,7 +241,7 @@ export default {
     return {
       color: "",
       ipconfig: {
-        province: "",
+        province: ""
       },
       jokeList: [],
       time: icnow.toTimeString().substring(0, 8),
@@ -259,50 +259,46 @@ export default {
         { type: "success", label: "HTML" },
         { type: "info", label: "JAVASCRIPT" },
         { type: "danger", label: "CSS" },
-        { type: "warning", label: "ECHARTS" },
-      ],
+        { type: "warning", label: "ECHARTS" }
+      ]
     };
   },
   created() {
-    this.getJoke();
-    this.getIp();
     this.getRandomColor();
     this.getTime();
     this.getData();
     this.getGusi();
+    
   },
-  mounted() {},
+  mounted() {
+    // this.getJoke();
+    // this.getIp();
+  },
   components: {
     Charts: () => import("./components/charts.vue"),
-    ItemCharts: () => import("./components/item.vue"),
+    ItemCharts: () => import("./components/item.vue")
   },
   computed: {
     userInfo() {
       return this.$store.state.user.userInfo;
-    },
+    }
   },
   methods: {
     highlight(name) {
       this.$refs.charts.heightChart(name);
     },
-    //获取天气
-    getWeather() {
-      console.log(this.ipconfig.province);
-      api.getWeather(this.ipconfig.province).then((res) => {
-        this.dayWeather = res.data.data;
-      });
-    },
+    
     //获取古诗词
     async getGusi() {
-      await api.getPoetry().then((res) => {
+      await api.getPoetry().then(res => {
         this.poetry = res.data.data;
       });
       //获取励志
-      await api.getLizhi().then((res) => {
+      await api.getLizhi().then(res => {
         this.lizhi = res.data.data;
       });
       //毒鸡汤
-      await api.getDjt().then((res) => {
+      await api.getDjt().then(res => {
         this.dujitang = res.data.data;
       });
     },
@@ -313,23 +309,31 @@ export default {
         this.time = icnow.toTimeString().substring(0, 8);
       }, 1000);
     },
+    //获取天气
+    async getWeather() {
+      await api.getWeather(this.ipconfig.province).then(res => {
+        this.dayWeather = res.data.data;
+      });
+    },
     //获取笑话
-    getJoke() {
-      api.getJoke().then((res) => {
+    async getJoke() {
+      await api.getJoke().then(res => {
         this.jokeList = res.data.data;
-        this.jokeList = this.jokeList;
       });
     },
     //获取今日信息
-    getData() {
-      api.getData(this.yearday).then((res) => {
+    async getData() {
+      await api.getData(this.yearday).then(res => {
         this.dayInfo = res.data.data;
       });
     },
-    getIp() {
-      api.getIp().then((res) => {
+    //获取IP
+    async getIp() {
+      await api.getIp().then(res => {
         this.ipconfig = res.data.data;
-        this.getWeather();
+        if (res.data.code == 200) {
+          this.getWeather();
+        }
       });
     },
     getRandomColor() {
@@ -350,18 +354,18 @@ export default {
         "c",
         "d",
         "e",
-        "f",
+        "f"
       ];
       for (var i = 0; i < 6; i++) {
         var num = parseInt(Math.random() * 16);
         str += arr[num];
       }
       this.color = str;
-    },
+    }
   },
   beforeDestroy() {
     clearInterval(interval);
-  },
+  }
 };
 </script>
 
