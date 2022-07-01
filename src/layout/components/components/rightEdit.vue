@@ -100,7 +100,7 @@ export default {
     };
   },
   created() {
-    this.theme =  this.themeColor;
+    this.theme = this.themeColor;
     this.isLeftMenu = this.leftMenu;
     this.isTagView = this.tagView;
   },
@@ -114,7 +114,7 @@ export default {
     },
     isTag(isTag) {
       this.$store.dispatch("setTagView", isTag);
-    },
+    }
   },
   computed: {
     ...mapGetters(["themeColor", "leftMenu", "tagView"])
@@ -130,6 +130,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import "@/style/dynamic.scss";
+.edit-drawer {
+  z-index: 9999;
+  box-sizing: border-box;
+}
 .theme-picker .el-color-picker__trigger {
   vertical-align: middle;
 }
@@ -247,13 +251,15 @@ h3::before {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    flex-wrap: wrap;
     .item_title {
       width: 100px;
       font-size: 14px;
       font-weight: 700;
     }
     .item_content {
-      width: 300px;
+      flex: 1;
+      overflow: hidden;
     }
   }
 }

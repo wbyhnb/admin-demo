@@ -111,7 +111,7 @@ export default {
 };
 </script>
  
-<style lang="scss">
+<style lang="scss" scoped>
 .wangeditor {
   border: 1px solid #e6e6e6;
   box-sizing: border-box;
@@ -122,5 +122,11 @@ export default {
   .text {
     min-height: 300px;
   }
+}
+>>>.w-e-toolbar{
+  z-index: 999 !important;
+}
+>>>.w-e-text-container{
+  z-index: 999 !important;
 }
 </style>
