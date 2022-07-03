@@ -1,7 +1,10 @@
 <template>
   <div class="headers">
     <div class="headers_menu" >
-      <div class="menu_title"><img class="menu_img" src="@/assets/logo.png" alt=""> WeiOne后台管理系统</div>
+      <div class="menu_title">
+        <img class="menu_img" src="@/assets/logo.png" alt="">
+        <div class="menu_name">WeiOne后台管理系统</div>
+         </div>
       <Menu v-if="!leftMenu"/>
     </div>
     <div class="headers_button">
@@ -180,18 +183,29 @@ export default {
     display: flex;
     align-items: center;
     .menu_title{
+      width: 184px;
       font-size: 20px;
       font-weight: bold;
       font-family: KaiTi;
+      box-sizing: border-box;
       color: #fff;
       line-height: 50px;
-      overflow: hidden;
+      display: flex;
+      align-items: center;
       .menu_img{
         display: inline-block;
         width: 30px;
         height: 30px;
-        margin: 10px 0 0 0 ;
         margin-right: 10px;
+      }
+      .menu_name{
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bold;
+        font-family: KaiTi;
+        color: #fff;
+        line-height: 50px;
+        overflow: hidden;
       }
     }
   }
