@@ -126,6 +126,7 @@ export default {
               }
             ]
           },
+          //markdown
           {
             path: "/markdown",
             name: "markdown",
@@ -137,7 +138,7 @@ export default {
               title: "markdown编辑器",
               icon: "markdown"
             },
-            children:[
+            children: [
               {
                 path: "/markdown/index",
                 name: "markdownIndex",
@@ -175,81 +176,32 @@ export default {
               }
             ]
           },
+          //动画
           {
-            path: "/user",
+            path: "/animation",
+            name: "Animation",
             hidden: false,
-            name: "User",
             component: "Layout",
-            redirect: "/user/index",
+            redirect: "/animation/index",
             meta: {
-              requireAuth: true,
-              title: "用户管理"
+              title: "动画",
+              icon: "dongtai"
             },
             children: [
               {
-                path: "/user/index",
-                name: "UserIndex",
-                component: "users",
+                path: "/animation/index",
+                name: "AnimationIndex",
+                hidden: false,
+                component: "animation",
                 meta: {
-                  requireAuth: true,
-                  title: "用户列表"
-                }
-              },
-              {
-                path: "/user/add",
-                name: "UserAdd",
-                component: "add",
-                meta: {
-                  requireAuth: true,
-                  title: "添加用户"
+                  title: "动画",
+                  icon: "dongtai"
                 }
               }
             ]
           },
-          {
-            path: "/role",
-            hidden: false,
-            component: "Layout",
-            name: "Role",
-            redirect: "/role/index",
-            meta: {
-              requireAuth: true,
-              title: "权限管理"
-            },
-            children: [
-              {
-                path: "/role/index",
-                name: "RoleIndex",
-                component: "role",
-                meta: {
-                  requireAuth: true,
-                  title: "角色列表"
-                }
-              }
-            ]
-          },
-          {
-            path: "/name",
-            component: "Layout",
-            name: "Name",
-            redirect: "/name/index",
-            hidden: false,
-            meta: {
-              requireAuth: true,
-              title: "角色管理"
-            },
-            children: [
-              {
-                path: "/name/index",
-                name: "NameIndex",
-                component: "name",
-                meta: {
-                  requireAuth: true,
-                  title: "角色列表"
-                }
-              }
-            ]
-          }
+          
+          
         ],
         message: "获取成功"
       };

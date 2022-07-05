@@ -1,11 +1,11 @@
 <template>
   <div class="headers">
-    <div class="headers_menu" >
-      <div class="menu_title">
-        <img class="menu_img" src="@/assets/logo.png" alt="">
+    <div class="headers_menu">
+      <div class="menu_title" v-if="Logo">
+        <img class="menu_img" src="@/assets/logo.png" alt="" />
         <div class="menu_name">WeiOne后台管理系统</div>
-         </div>
-      <Menu v-if="!leftMenu"/>
+      </div>
+      <Menu v-if="!leftMenu" />
     </div>
     <div class="headers_button">
       <div
@@ -17,6 +17,7 @@
           class="inp-active"
           :fetch-suggestions="querySearchAsync"
           @select="handleSelect"
+          @blur="isSearch = false"
         />
         <div class="" @click="Search">
           <icon-svg icon-class="sousuo" class="svg1" />
@@ -84,7 +85,7 @@ export default {
     this.restaurants = this.loadAll();
   },
   computed: {
-    ...mapGetters(["themeColor", "leftMenu", "tagView"]),
+    ...mapGetters(["themeColor", "leftMenu", "tagView", "Logo"]),
     userInfo() {
       return this.$store.state.user.userInfo;
     },
@@ -144,7 +145,7 @@ export default {
       }).then(() => {
         removeToken();
         this.$router.replace("/login");
-        // location.reload();//刷新页面方法
+        location.reload();//刷新页面方法
       });
     },
     // 切换全屏方法
@@ -176,13 +177,13 @@ export default {
     #b19fff 48%,
     #eca1fe 100%
   );
-  padding:0 20px 0 10px;
+  padding: 0 20px 0 10px;
   box-sizing: border-box;
-  .headers_menu{
+  .headers_menu {
     height: 100%;
     display: flex;
     align-items: center;
-    .menu_title{
+    .menu_title {
       width: 184px;
       font-size: 20px;
       font-weight: bold;
@@ -192,13 +193,13 @@ export default {
       line-height: 50px;
       display: flex;
       align-items: center;
-      .menu_img{
+      .menu_img {
         display: inline-block;
         width: 30px;
         height: 30px;
         margin-right: 10px;
       }
-      .menu_name{
+      .menu_name {
         display: inline-block;
         font-size: 16px;
         font-weight: bold;

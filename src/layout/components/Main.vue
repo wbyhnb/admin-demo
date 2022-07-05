@@ -11,10 +11,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/style/dynamic.scss";
 .main-box {
   overflow-x: hidden;
   // width: 100%;
-  height: calc(100vh - 115px) ;
+  height: calc(100vh - $mainHeight) ;
   // padding-top: 20px;
   box-sizing: border-box;
   // overflow: scroll;

@@ -48,6 +48,9 @@ export default {
   data() {
     return {
       iconfontList: [
+        "markdown1",
+        "markdown",
+        "github-fill",
         "a-Chevron-Right2",
         "BaiDu",
         "sousuo1",

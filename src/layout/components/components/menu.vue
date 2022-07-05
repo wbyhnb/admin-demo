@@ -4,21 +4,43 @@
       <icon-svg icon-class="Chevron-Left" class="menu_svg" />
     </div>
     <div class="menu_scroll" @scroll="getScrollLeft($event)" ref="scrollDiv">
-      <el-menu id="menu" ref="menu" mode="horizontal" :default-active="$route.path" :collapse-transition="false"
-        @scroll="getScrollLeft($event)" class="el-menu-vertical-demo" text-color="#ffffff" router
-        background-color="transparent" active-text-color="#fff">
+      <el-menu
+        id="menu"
+        ref="menu"
+        mode="horizontal"
+        :default-active="$route.path"
+        :collapse-transition="false"
+        @scroll="getScrollLeft($event)"
+        class="el-menu-vertical-demo"
+        text-color="#ffffff"
+        router
+        background-color="transparent"
+        active-text-color="#fff"
+      >
         <template v-for="item in routes">
           <template v-if="item.children && item.children.length > 1">
             <el-submenu :index="item.path" :key="item.path">
               <template slot="title">
-                <icon-svg v-if="item.meta.icon" :icon-class="item.meta.icon" class="svg" />
+                <icon-svg
+                  v-if="item.meta.icon"
+                  :icon-class="item.meta.icon"
+                  class="svg"
+                />
                 <i class="el-icon-menu" v-else></i>
                 <span class="icon_span">{{ item.meta.title }}</span>
               </template>
               <template v-for="second in item.children">
                 <template v-if="second.children">
-                  <el-submenu v-for="child in second.children" :key="child.path" :index="child.path">
-                    <icon-svg v-if="child.meta.icon" :icon-class="child.meta.icon" class="svg" />
+                  <el-submenu
+                    v-for="child in second.children"
+                    :key="child.path"
+                    :index="child.path"
+                  >
+                    <icon-svg
+                      v-if="child.meta.icon"
+                      :icon-class="child.meta.icon"
+                      class="svg"
+                    />
                     <i class="el-icon-menu" v-else></i>
                     <el-menu-item :index="child.path">
                       <span class="icon_span">{{ second.meta.title }}</span>
@@ -27,7 +49,11 @@
                 </template>
                 <template v-else>
                   <el-menu-item :index="second.path" :key="second.path">
-                    <icon-svg v-if="second.meta.icon" :icon-class="second.meta.icon" class="svg" />
+                    <icon-svg
+                      v-if="second.meta.icon"
+                      :icon-class="second.meta.icon"
+                      class="svg"
+                    />
                     <i class="el-icon-menu" v-else></i>
                     <span class="icon_span"> {{ second.meta.title }}</span>
                   </el-menu-item>
@@ -36,13 +62,20 @@
             </el-submenu>
           </template>
 
-          <el-menu-item v-else-if="!item.hidden" :index="item.children[0].path" :key="item.children[0].path">
-            <icon-svg v-if="item.meta.icon" :icon-class="item.meta.icon" class="svg" />
+          <el-menu-item
+            v-else-if="!item.hidden"
+            :index="item.children[0].path"
+            :key="item.children[0].path"
+          >
+            <icon-svg
+              v-if="item.meta.icon"
+              :icon-class="item.meta.icon"
+              class="svg"
+            />
             <i class="el-icon-menu" v-else></i>
             <span class="icon_span" slot="title">{{ item.meta.title }}</span>
           </el-menu-item>
         </template>
-
       </el-menu>
     </div>
     <div class="menu_right" v-if="isScroll" @click="scrollRight">
@@ -52,49 +85,37 @@
 </template>
 
 <script>
+let interval; // 定义全局定时器，用于清除定时器
 export default {
   name: "headerMenu",
   data() {
     return {
       scrollTop: 0,
-      scrollX: 0,
+      // scrollWitch: 0,
       scrollY: 0,
-      isScroll: false,
-
+      isScroll: false
     };
   },
-  
-  created() {
-    // document.getElementById("menu")
-    // document.getElementById("menu").scrollLeft = this.scrollX;
-    // console.log(document.getElementById("menu").scrollLeft);
-    // console.log(this.$refs.menu);
-  },
+
+  created() {},
   mounted() {
     this.$nextTick(() => {
-      // this.scrollX = document.getElementById("menu").scrollLeft;
-
-      console.log(this.$refs.menu.$el.offsetWidth);
-      console.log(this.$refs.scrollDiv.offsetWidth);
-      if (this.$refs.menu.$el.offsetWidth > this.$refs.scrollDiv.offsetWidth) {
-        this.isScroll = true;
-      }
-      // document.getElementById("menu").style.right = '100px'
-      //  this.$refs.menu.style.left = '-100px'
-      // this.$refs.scrollDiv.scrollLeft = this.scrollX;
-      //获取菜单的宽度
-      // this.$refs.menu.style.width = '100px'
-
-      // console.log(this.$refs.menu);
-      // console.log(this.$refs.menu);
-
+      //动态获取元素的宽度
+      interval = setInterval(() => {
+        if (
+          this.$refs.menu.$el.offsetWidth > this.$refs.scrollDiv.offsetWidth
+        ) {
+          this.isScroll = true;
+        } else {
+          this.isScroll = false;
+        }
+      }, 500);
     }, 100);
-
   },
   computed: {
     routes() {
       return this.$router.options.routes;
-    },
+    }
   },
   methods: {
     getScrollLeft(event) {
@@ -105,14 +126,14 @@ export default {
     //滚动右边
     scrollRight() {
       const times = setInterval(() => {
-        this.$refs.scrollDiv.scrollLeft += 100
-        if (this.$refs.scrollDiv.scrollLeft >= this.$refs.menu.$el.offsetWidth - this.$refs.scrollDiv.offsetWidth) {
+        this.$refs.scrollDiv.scrollLeft += 100;
+        if (
+          this.$refs.scrollDiv.scrollLeft >=
+          this.$refs.menu.$el.offsetWidth - this.$refs.scrollDiv.offsetWidth
+        ) {
           clearInterval(times);
-          console.log(1);
         }
-
-
-      }, 30);
+      }, 60);
       // this.$refs.scrollDiv.scrollLeft = 1000;
     },
     //滚动到左边
@@ -121,11 +142,14 @@ export default {
         this.$refs.scrollDiv.scrollLeft -= 100;
         if (this.$refs.scrollDiv.scrollLeft <= 1) {
           clearInterval(times);
-          console.log(2);
         }
-      }, 30);
-    },
+      }, 60);
+    }
   },
+  beforeDestroy() {
+    //清除定时器
+    clearInterval(interval);
+  }
 };
 </script>
 
@@ -134,23 +158,54 @@ export default {
 
 .menu {
   display: flex;
+  padding: 0 0 2px;
   height: 50px;
   align-items: center;
-user-select:none;
+  user-select: none;
+  cursor: pointer;
+  transform: all 0.3s ease-in-out;
   .menu_left {
     height: 100%;
     width: 40px;
     padding-left: 5px;
     cursor: pointer;
     box-sizing: border-box;
-    border-right: 2px solid #fff;
+    // border-right: 2px solid #fff;
+   background: linear-gradient(to left, rgb(255 255 255 / 40%) 0%, transparent);
+    animation: fade-in-left 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  }
+  @keyframes fade-in-left {
+    0% {
+      -webkit-transform: translateX(-50px);
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 
   .menu_right {
     box-sizing: border-box;
     height: 100%;
     cursor: pointer;
-    border-left: 2px solid #fff;
+    // border-left: 2px solid #fff;
+        background: linear-gradient(to right, rgb(255 255 255 / 40%) 0%, transparent);
+    animation: fade-in-right 1.5s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  }
+  @keyframes fade-in-right {
+    0% {
+      -webkit-transform: translateX(50px);
+      transform: translateX(50px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 
   .menu_svg {
@@ -163,6 +218,11 @@ user-select:none;
   .menu_svg:hover {
     font-size: 36px;
     padding-top: 8px;
+  }
+}
+.menu:hover {
+  .menu_scroll::-webkit-scrollbar-thumb {
+    display: block;
   }
 }
 
@@ -178,8 +238,7 @@ user-select:none;
   height: 50px;
   width: calc(100vw - 660px);
   overflow-x: scroll;
-  animation: all .3s ease;
-
+  animation: all 0.3s ease;
 }
 
 .menu_scroll::-webkit-scrollbar {
@@ -195,10 +254,6 @@ user-select:none;
   border-radius: 5px;
   cursor: pointer;
   height: 10px;
-}
-
-.menu_scroll::-webkit-scrollbar-thumb:hover {
-  display: block;
 }
 
 .icon_span {
@@ -225,7 +280,7 @@ user-select:none;
   padding-right: 2px;
 }
 
-.el-menu--horizontal>.el-menu-item {
+.el-menu--horizontal > .el-menu-item {
   margin: 4px;
   height: 40px;
   line-height: 40px;
@@ -249,8 +304,7 @@ user-select:none;
   }
 }
 
-
->>>.el-submenu__title {
+>>> .el-submenu__title {
   height: 40px !important;
   line-height: 40px !important;
   margin: 4px;
@@ -272,7 +326,7 @@ user-select:none;
   }
 }
 
->>>.el-submenu__title:hover {
+>>> .el-submenu__title:hover {
   background-color: transparent !important;
   color: #fff !important;
   font-weight: 600;
@@ -294,7 +348,7 @@ user-select:none;
   }
 }
 
->>>.el-menu--horizontal>.el-submenu .is-active .el-submenu__title {
+>>> .el-menu--horizontal > .el-submenu .is-active .el-submenu__title {
   background-color: transparent !important;
   color: #fff !important;
   font-weight: 700;
@@ -304,7 +358,7 @@ user-select:none;
   }
 }
 
-.el-menu--horizontal>.el-menu-item.is-active {
+.el-menu--horizontal > .el-menu-item.is-active {
   background-color: transparent !important;
   color: #fff !important;
   font-weight: 700;
@@ -321,9 +375,11 @@ user-select:none;
 .el-menu--popup {
   min-width: 130px !important;
   padding: 5px !important;
-  background-image: linear-gradient(-225deg,
-      $leftColor 0%,
-      #b19fff 48%,
-      #eca1fe 100%);
+  background-image: linear-gradient(
+    -225deg,
+    $leftColor 0%,
+    #b19fff 48%,
+    #eca1fe 100%
+  );
 }
 </style>

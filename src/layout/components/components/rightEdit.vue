@@ -58,7 +58,7 @@
         <div class="item">
           <div class="item_title">LOGO</div>
           <div class="item_content">
-            <el-switch v-model="isLogo"> </el-switch>
+            <el-switch v-model="isLogo" @change="isLogopng"> </el-switch>
           </div>
         </div>
         <div class="item">
@@ -94,8 +94,8 @@ export default {
       drawerEdit: false,
       direction: "rtl",
       fontSize: 12,
-      isLogo: false,
-      isTagView: false,
+      isLogo: true,
+      isTagView: true,
       isLeftMenu: true
     };
   },
@@ -103,6 +103,7 @@ export default {
     this.theme = this.themeColor;
     this.isLeftMenu = this.leftMenu;
     this.isTagView = this.tagView;
+    this.isLogo = this.Logo;
   },
   mounted() {},
   methods: {
@@ -114,10 +115,19 @@ export default {
     },
     isTag(isTag) {
       this.$store.dispatch("setTagView", isTag);
+      if (!isTag) {
+        document.getElementsByTagName("body")[0].style.setProperty("--main",'65px');
+      } else {
+        document.getElementsByTagName("body")[0].style.setProperty("--main", '115px');
+      }
+    },
+    isLogopng(isLogo) {
+      this.$store.dispatch("setIsLogo", isLogo);
+      
     }
   },
   computed: {
-    ...mapGetters(["themeColor", "leftMenu", "tagView"])
+    ...mapGetters(["themeColor", "leftMenu", "tagView", "Logo"])
   },
   watch: {
     theme(val) {

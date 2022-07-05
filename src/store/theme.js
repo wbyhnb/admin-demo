@@ -1,10 +1,10 @@
-
 export default {
   state: {
     //获取本地存储的主题
     themeColor: "#f56c6c",
     leftMenu: true,
     tagView: true,
+    Logo: true
   },
   mutations: {
     SET_THEME(state, theme) {
@@ -15,8 +15,10 @@ export default {
     },
     SET_TAGVIEW(state, tagView) {
       state.tagView = tagView;
+    },
+    SET_ISLOGO(state, Logo) {
+      state.Logo = Logo;
     }
-
   },
   actions: {
     setTheme({ commit }, theme) {
@@ -27,12 +29,15 @@ export default {
     },
     setTagView({ commit }, tagView) {
       commit("SET_TAGVIEW", tagView);
+    },
+    setIsLogo({ commit }, Logo) {
+      commit("SET_ISLOGO", Logo);
     }
   },
   getters: {
     themeColor: state => state.themeColor,
     leftMenu: state => state.leftMenu,
-    tagView: state => state.tagView
-  },
-
+    tagView: state => state.tagView,
+    Logo: state => state.Logo
+  }
 };
