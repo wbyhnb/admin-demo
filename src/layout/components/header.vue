@@ -17,7 +17,6 @@
           class="inp-active"
           :fetch-suggestions="querySearchAsync"
           @select="handleSelect"
-          @blur="isSearch = false"
         />
         <div class="" @click="Search">
           <icon-svg icon-class="sousuo" class="svg1" />
@@ -94,6 +93,7 @@ export default {
     }
   },
   methods: {
+    //设置
     drawerEdit() {
       this.$refs.leftEdits.drawerEdit = true;
     },

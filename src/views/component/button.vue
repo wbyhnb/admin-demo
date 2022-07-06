@@ -73,7 +73,6 @@ export default {
       let times = 60;
       let setInter = setInterval(() => {
         times--;
-        
         if (times <= 0) {
           this.msgText = "获取验证码";
           this.disadles = false;

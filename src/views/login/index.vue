@@ -38,7 +38,7 @@
               </div>
             </form>
             <div class="">
-              <p>账号:admin</p>
+              <p>账号:admin（user）</p>
               <p>密码:123456</p>
             </div>
           </div>
