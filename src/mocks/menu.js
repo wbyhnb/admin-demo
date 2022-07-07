@@ -64,6 +64,17 @@ export default {
                   title: "button组件",
                   icon: "anniu"
                 }
+              },
+              {
+                path: "/component/code",
+                name: "Code",
+                hidden: false,
+                component: "component/code",
+                meta: {
+                  requireAuth: true,
+                  title: "code组件",
+                  icon: "code"
+                }
               }
             ]
           },
@@ -185,7 +196,7 @@ export default {
             redirect: "/animation/index",
             meta: {
               title: "动画",
-              icon: "dongtai"
+              icon: "a-zujiantianchong_huaban1fuben7"
             },
             children: [
               {
@@ -195,7 +206,7 @@ export default {
                 component: "animation",
                 meta: {
                   title: "动画",
-                  icon: "dongtai"
+                  icon: "a-zujiantianchong_huaban1fuben7"
                 }
               }
             ]

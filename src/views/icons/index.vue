@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       iconfontList: [
+        // "a-zujiantianchong_huaban1fuben7",
         "markdown1",
         "markdown",
         "github-fill",
@@ -496,6 +497,7 @@ li {
 .icon-li {
   display: inline-block;
   border: 1px solid #eee;
+  // box-sizing: border-box;
   padding: 10px;
   width: 120px;
   height: 120px;
