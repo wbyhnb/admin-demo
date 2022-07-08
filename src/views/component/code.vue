@@ -1,8 +1,7 @@
 <template>
   <div class="drag">
-    <div class="drag_box" ref="dragbox">
-      <span class="span_text">好</span>
-    </div>
+    <!-- <div class="drag_box" ref="dragbox"></div>
+    <button @click="ass">刷新</button>
     {{ oldText }}
     <div
       id="div1"
@@ -22,7 +21,8 @@
     >
 
     <button @click="onClick">123</button>
-    <button @click="onMeth">456</button>
+    <button @click="onMeth">456</button> -->
+    <codes></codes>
   </div>
 </template>
 
@@ -30,22 +30,25 @@
 export default {
   name: "logincodes",
   props: {},
+  components: {
+    codes: () => import("./code-item.vue")
+  },
   data() {
     return {
       dataForm: [
-        "月落乌啼霜满天",
-        "明月何时照我还",
-        "我欲乘风归去",
+        "月落乌啼",
+        "明月何时",
+        "乘风归去",
         "又送君千里",
         "江上入海",
-        "大风起兮云飞扬",
+        "大风起兮",
         "长江东逝水",
         "海上生明月",
-        "东风无力百花残",
+        "东风无力",
         "更销不尽愁",
         "暮春不至",
         "江畔何处客",
-        "疑是青花依旧"
+        "青花依旧"
       ],
       oldText: "",
       newText: "",
@@ -53,20 +56,41 @@ export default {
       value: ""
     };
   },
-    mounted() {
-        this.$nextTick(()=>{
-           console.log(this.$refs.dragbox);
-        let span = document.createElement("span");
-        let dom = this.$refs.dragbox;
-        span.innerHTML = "你";
-        span.classList = ["span_text"];
-        span.style.marginTop = "50px";
-        span.style.left = "50px";
-        dom.appendChild(span);  
-        })
-       
-    },
+  mounted() {
+    this.$nextTick(() => {
+    //   this.ass();
+    });
+  },
   methods: {
+    ass() {
+      if (this.oldText) {
+        let el = this.$refs.dragbox;
+        let childs = el.childNodes;
+        for (let i = childs.length - 1; i >= 0; i--) {
+          el.removeChild(childs[i]);
+        }
+      }
+      let dragboxWidth = this.$refs.dragbox.offsetWidth;
+      let dragboxHeight = this.$refs.dragbox.offsetHeight;
+      let dom = this.$refs.dragbox;
+      let _length = this.dataForm.length;
+      let roundNum = Math.round(Math.random() * (_length - 1));
+      this.oldText = this.dataForm[roundNum];
+      this.newText = this.oldText;
+      let arr = this.oldText.split("");
+      let _width = [];
+      let _height = [];
+      for (let i = 0; i < arr.length; i++) {
+        let spanWidth = Math.abs(Math.random() * (dragboxWidth - 25));
+        let spanHeight = Math.abs(Math.random() * (dragboxHeight - 32));
+        let span = document.createElement("span");
+        span.innerHTML = arr[i];
+        span.classList = ["span_text"];
+        span.style.top = spanHeight + "px";
+        span.style.left = spanWidth + "px";
+        dom.appendChild(span);
+      }
+    },
     onMeth() {
       console.log(this.value);
       this.times = new Date().getTime();
@@ -112,7 +136,7 @@ export default {
       let a = document.getElementById("div1").innerText;
       console.log(a);
     }
-  },
+  }
 };
 </script>
 
@@ -123,14 +147,17 @@ export default {
   background: #ccc;
   border: 1px solid #000;
   margin: 10px;
-  span{
-     font-size: 25px;
+  position: relative;
+  span {
+    font-size: 25px;
     font-family: KaiTi;
   }
 }
->>>.span_text{
-    font-size: 25px;
-    font-family: KaiTi;
+>>> .span_text {
+  position: absolute;
+  display: block;
+  font-size: 25px;
+  font-family: KaiTi;
 }
 #div1 {
   width: 50px;
