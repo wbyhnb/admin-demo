@@ -1,8 +1,23 @@
 <template>
   <div class="">
     <h1>input组件</h1>
-    {{ value }}
-    <oselect v-model="value" :option="options" />
+    二次封装element-ui的Select选择器：<oselect
+      v-model="value"
+      :option="options"
+    />{{ value }}<br />
+    <hr />
+    自定义指令v-num：
+    <el-input v-model="value2" v-num style="width:300px"></el-input>{{ value2
+    }}<br />
+    <hr />
+    box多选组件：<br />
+    填充模式：
+    <boxselect v-model="value3" :label="'value'" :options="options" />
+    {{ value3 }}<br />
+    边框模式： <boxselect v-model="value4" :options="options" plain />{{
+      value4
+    }}
+    <br />
   </div>
 </template>
 
@@ -32,20 +47,18 @@ export default {
           label: "北京烤鸭"
         }
       ],
-      value: []
+      value: [],
+      value2: "",
+      value3: [],
+      value4: []
     };
   },
   components: {
-    oselect:()=>import("./select.vue")
+    oselect: () => import("./components/select.vue"),
+    boxselect: () => import("./components/boxselect.vue")
   },
-  mounted() {
-    
-  },
-  methods: {
-
-  },
+  mounted() {},
+  methods: {}
 };
 </script>
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

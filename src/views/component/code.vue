@@ -31,7 +31,7 @@ export default {
   name: "logincodes",
   props: {},
   components: {
-    codes: () => import("./code-item.vue")
+    codes: () => import("./components/code-item.vue")
   },
   data() {
     return {

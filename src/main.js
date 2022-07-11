@@ -16,6 +16,9 @@ import butCol from "@/components/but-col";
 
 import mavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
+//自定义指令
+import "@/plugins/index";
+
 // use
 Vue.use(mavonEditor);
 Vue.component("icon-svg", IconSvg);
