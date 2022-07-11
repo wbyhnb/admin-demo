@@ -11,8 +11,9 @@
     }}<br />
     <hr />
     box多选组件：<br />
+    <prism :codes="code" :isLine="true" style="width:60%" />
     填充模式：
-    <boxselect v-model="value3" :label="'value'" :options="options" />
+    <boxselect v-model="value3" :value-key="'value'" :label-key="'label'" :options="options" />
     {{ value3 }}<br />
     边框模式： <boxselect v-model="value4" :options="options" plain />{{
       value4
@@ -25,6 +26,7 @@
 export default {
   data() {
     return {
+      code:`//设置：value-key、label-key可指定显示内容，和绑定数据；plain属性为边框模式\n//填充模式：\n <boxselect v-model="value3" :value-key="'value'" :label-key="'label'" :options="options" />\n//边框模式：\n <boxselect v-model="value4" :options="options" plain />`,
       options: [
         {
           value: "选项1",
@@ -61,4 +63,6 @@ export default {
   methods: {}
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>

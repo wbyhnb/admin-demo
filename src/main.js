@@ -13,7 +13,7 @@ import "@/router/permission";
 import IconSvg from "@/components/Icon-svg";
 import textOver from "@/components/text-over";
 import butCol from "@/components/but-col";
-
+import prism from "@/components/vue-prism-editor.vue";
 import mavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 //自定义指令
@@ -24,6 +24,7 @@ Vue.use(mavonEditor);
 Vue.component("icon-svg", IconSvg);
 Vue.component("text-over", textOver);
 Vue.component("but-col", butCol);
+Vue.component("prism", prism);
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

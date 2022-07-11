@@ -5,9 +5,17 @@
       v-for="(item, index) in options"
       :key="index"
       @click="boxClick(item)"
-      :class="boxValue.indexOf(item) === -1 ? '' : 'is-active'"
+      :class="
+        valueKey
+          ? boxValue.indexOf(item[valueKey]) === -1
+            ? ''
+            : 'is-active'
+          : boxValue.indexOf(item) === -1
+          ? ''
+          : 'is-active'
+      "
     >
-      {{ item[label] }}
+      {{ item[labelKey] }}
     </div>
   </div>
 </template>
@@ -26,24 +34,43 @@ export default {
       default: false
     },
     // label绑定的值，默认为label，可以自定义
-    label: {
+    labelKey: {
       type: String,
       default: "label"
+    },
+    // 值绑定的值，默认为""，可以自定义
+    valueKey: {
+      type: String,
+      default: ""
+    },
+    // 选中的值，默认为[]，可以自定义
+    value: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
     return {
-      boxValue: []
+      boxValue: this.value
     };
   },
+  created() {},
   computed: {},
   methods: {
-    //// 多选点击事件
+    // 多选点击事件
     boxClick(item) {
-      if (this.boxValue.indexOf(item) === -1) {
-        this.boxValue.push(item);
+      if (!this.valueKey) {
+        if (this.boxValue.indexOf(item) === -1) {
+          this.boxValue.push(item);
+        } else {
+          this.boxValue.splice(this.boxValue.indexOf(item), 1);
+        }
       } else {
-        this.boxValue.splice(this.boxValue.indexOf(item), 1);
+        if (this.boxValue.indexOf(item[this.valueKey]) === -1) {
+          this.boxValue.push(item[this.valueKey]);
+        } else {
+          this.boxValue.splice(this.boxValue.indexOf(item[this.valueKey]), 1);
+        }
       }
     }
   },
@@ -51,6 +78,10 @@ export default {
     //原生v-model绑定的值
     boxValue(val) {
       this.$emit("input", val);
+    },
+    //原生v-model绑定的值
+    value(val) {
+      this.boxValue = val;
     }
   }
 };
