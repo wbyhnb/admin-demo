@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import wangEditor from "@/components/wangEditor.vue";
+import wangEditor from "@/components/editor/wangEditor.vue";
 export default {
   data() {
     return {

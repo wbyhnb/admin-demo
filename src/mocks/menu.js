@@ -73,9 +73,22 @@ export default {
                 meta: {
                   requireAuth: true,
                   title: "code组件",
-                  icon: "code"
+                  icon: "qrcode"
                 }
-              }
+              },
+              //消息提示
+              {
+                path: "/component/message",
+                name: "Message",
+                hidden: false,
+                component: "component/message",
+                meta: {
+                  requireAuth: true,
+                  title: "message组件",
+                  icon: "message"
+                }
+              },
+
             ]
           },
           //富文本

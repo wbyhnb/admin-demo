@@ -6,7 +6,7 @@
   </div>
 </template>
 <script>
-import Editor from "@/components/ueditor";
+import Editor from "@/components/editor/ueditor";
 export default {
   components: { Editor },
   data() {

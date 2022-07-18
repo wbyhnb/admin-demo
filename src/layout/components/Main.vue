@@ -1,12 +1,29 @@
 <template>
-  <div class="main-box">
-    <router-view></router-view>
+  <div class="main-box"  v-loading="loading">
+    <router-view v-if="isRouterAlive"></router-view>
   </div>
 </template>
 
 <script>
 export default {
-  components: {}
+  data() {
+    return {
+      loading: false,
+      isRouterAlive: true,
+    };
+  },
+  methods: {
+    routerAlive() {
+      this.isRouterAlive = false;
+      this.loading = true;
+      this.$nextTick(() => {
+        this.isRouterAlive = true;
+        setTimeout(() => {
+        this.loading = false;
+      }, 500);
+      });
+    },
+  },
 };
 </script>
 

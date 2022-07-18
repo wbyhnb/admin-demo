@@ -14,7 +14,7 @@ export default {
     };
   },
   components: {
-    Tinymce: () => import("@/components/tinymce.vue"),
+    Tinymce: () => import("@/components/editor/tinymce.vue"),
   },
 };
 </script>

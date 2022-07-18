@@ -1,7 +1,7 @@
 <template>
   <div class="tag-button">
     <div class="" v-for="(item, index) in tagList" :key="index">
-      <div :class="item.path != routePush.path ? 'links' : 'links active'">
+      <div :class="item.path != routePush.path ? 'links' : 'links active'" @contextmenu.prevent="flushedChild">
         <div class="links-push">
           <router-link :to="item.path" :style="{ display: 'block' }">
             {{ item.title }}</router-link
@@ -35,6 +35,9 @@ export default {
     }
   },
   methods: {
+    flushedChild(){
+      this.$emit("flushedChild");
+    },
     removeTags(row) {
       if (this.tagList.length == 2) {
         this.tagList.splice(this.tagList.indexOf(row), 1);

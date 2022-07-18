@@ -15,7 +15,7 @@ export default {
         };
     },
     components: {
-        Quill: () => import("@/components/quillEditor.vue"),
+        Quill: () => import("@/components/editor/quillEditor.vue"),
     },
     };
 </script>

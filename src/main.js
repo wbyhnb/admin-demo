@@ -13,7 +13,7 @@ import "@/router/permission";
 import IconSvg from "@/components/Icon-svg";
 import textOver from "@/components/text-over";
 import butCol from "@/components/but-col";
-import prism from "@/components/vue-prism-editor.vue";
+import prism from "@/components/editor/vue-prism-editor.vue";
 import mavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 //自定义指令

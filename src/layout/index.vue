@@ -6,10 +6,10 @@
         <Header />
       </div>
       <div class="main-button" v-if="tagView">
-        <TagPush />
+        <TagPush @flushedChild="flushedChild"/>
       </div>
       <div class="main-content">
-        <Main />
+        <Main ref="main"/>
       </div>
     </div>
   </div>
@@ -29,7 +29,11 @@ export default {
     return {
     };
   },
-  methods: {},
+  methods: {
+    flushedChild(){
+      this.$refs.main.routerAlive()
+    }
+  },
   computed: {
     ...mapGetters(["leftMenu","tagView"])
   },

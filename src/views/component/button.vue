@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import Prism from "@/components/vue-prism-editor.vue";
+import Prism from "@/components/editor/vue-prism-editor.vue";
 export default {
   name: "button-copmponent",
   components: {
