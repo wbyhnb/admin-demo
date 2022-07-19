@@ -1,15 +1,15 @@
 <template>
-  <div class="">
+  <div class="box">
     <!-- 封装轮播图插件 -->
     <!-- <button @click="swiper">自动轮播</button> -->
     <!-- <button @click="swiperStop">手动轮播</button> -->
-    <!-- <swiper ref="swiper" :list="list" /> -->
-    <card :list="list"></card>
+    <swiper ref="swiper" :list="list" />
+    <card :list="list" bool></card>
+    <swiperbox :list="list"   />
   </div>
 </template>
 
 <script>
-let timer;
 export default {
   data() {
     return {
@@ -24,7 +24,8 @@ export default {
   },
   components: {
     swiper: () => import("./components/swiper.vue"),
-    card: () => import("./components/card.vue")
+    card: () => import("./components/card.vue"),
+    swiperbox: () => import("./components/swiperbox.vue")
   },
   created() {
     // const files = require.context("@/views", true, /\.vue$/);
@@ -46,4 +47,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.box{
+  width: 100%;
+  height: 100%;
+}</style>

@@ -28,16 +28,26 @@
 <script>
 let timer;
 export default {
+  name: "swiper",
     props: {
         list: {
             type: Array,
             default: () => []
+        },
+        bool: {
+            type: Boolean,
+            default: false
         }
     },
   data() {
     return {
       imgindex: 0
     };
+  },
+  mounted() {
+    if (this.bool == true) {
+      this.swiper();
+    }
   },
   methods: {
     swiperLeft() {
