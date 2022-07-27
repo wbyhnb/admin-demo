@@ -65,6 +65,19 @@ export default {
                   icon: "anniu"
                 }
               },
+              //过滤器
+              {
+                path: "/component/filter",
+                name: "Filter",
+                hidden: false,
+                component: "component/filter",
+                meta: {
+                  requireAuth: true,
+                  title: "过滤器",
+                  icon: "guolv"
+                }
+              },
+              //按钮组件
               {
                 path: "/component/code",
                 name: "Code",
@@ -87,8 +100,7 @@ export default {
                   title: "message组件",
                   icon: "message"
                 }
-              },
-
+              }
             ]
           },
           //富文本
@@ -197,6 +209,16 @@ export default {
                   title: "表格",
                   icon: "biaoge1"
                 }
+              },
+              {
+                path: "/table/o-table",
+                name: "TableO",
+                hidden: false,
+                component: "table/o-table",
+                meta: {
+                  title: "表格封装",
+                  icon: "biaoge1"
+                }
               }
             ]
           },
@@ -223,9 +245,7 @@ export default {
                 }
               }
             ]
-          },
-          
-          
+          }
         ],
         message: "获取成功"
       };

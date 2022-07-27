@@ -15,7 +15,14 @@
           <li class="icon-li" v-for="(item, index) in lists" :key="index">
             <div class="icon-li-content">
               <icon-svg :icon-class="item" class="svg" />
-              <span>{{ item }}</span>
+              <el-tooltip
+                class="item"
+                effect="dark"
+                :content="`<icon-svg :icon-class='${item}' />`"
+                placement="top"
+              >
+                <span>{{ item }}</span>
+              </el-tooltip>
             </div>
           </li>
         </ul>
@@ -34,7 +41,14 @@
           <li class="icon-li" v-for="(item, index) in list" :key="index">
             <div class="icon-li-content">
               <i :class="`el-icon-${item}`"></i>
-              <span>{{ item }}</span>
+               <el-tooltip
+                class="item"
+                effect="dark"
+                :content="`<i :class='el-icon-${item}' />`"
+                placement="top"
+              >
+                <span>{{ item }}</span>
+              </el-tooltip>
             </div>
           </li>
         </ul>

@@ -16,8 +16,21 @@ import butCol from "@/components/but-col";
 import prism from "@/components/editor/vue-prism-editor.vue";
 import mavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
+
+
 //自定义指令
 import "@/plugins/index";
+//全局过滤器
+import * as filters from "@/plugins/filter.js";
+
+Object.keys(filters).forEach(item=>{
+  Vue.filter(item,filters[item])
+})
+
+
+
+
+
 
 // use
 Vue.use(mavonEditor);
@@ -29,6 +42,7 @@ Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);
 Vue.use(Element);
+
 /* eslint-disable no-new */
 new Vue({
   el: "#app",

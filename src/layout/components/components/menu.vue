@@ -133,7 +133,7 @@ export default {
         ) {
           clearInterval(times);
         }
-      }, 60);
+      }, 80);
       // this.$refs.scrollDiv.scrollLeft = 1000;
     },
     //滚动到左边
@@ -143,7 +143,7 @@ export default {
         if (this.$refs.scrollDiv.scrollLeft <= 1) {
           clearInterval(times);
         }
-      }, 60);
+      }, 80);
     }
   },
   beforeDestroy() {

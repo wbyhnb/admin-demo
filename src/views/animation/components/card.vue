@@ -47,19 +47,6 @@ export default {
     //卡片点击事件
     cardClick(index) {
       this.boxindex = index;
-      //   console.log(this.$refs.cardbox);
-      //   for (let i = 0; i < this.list.length; i++) {
-      //     //选中index的zindex为1，其他的为0
-      //     if (i == this.boxindex) {
-      //     //   this.$refs.swiperbox[i].style.zIndex = 1;
-      //       this.$refs.cardbox.children[i].classList.add("card_active");
-      //       this.$refs.cardbox.children[i].classList.remove("card_actives");
-      //     } else {
-      //     //   this.$refs.swiperbox[i].style.zIndex = 0;
-      //       this.$refs.cardbox.children[i].classList.remove("card_active");
-      //       this.$refs.cardbox.children[i].classList.add("card_actives");
-      //     }
-      //   }
     },
     //自动轮播
     swiper() {

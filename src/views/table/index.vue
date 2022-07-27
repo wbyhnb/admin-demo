@@ -94,6 +94,7 @@
     <el-table
     :data="table"
     border
+    size="mini"
     :summary-method="getSummaries"
     show-summary
     style="width: 100%;">
