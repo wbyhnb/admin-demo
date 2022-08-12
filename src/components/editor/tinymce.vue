@@ -52,6 +52,7 @@ import "tinymce/plugins/insertdatetime";
 import "tinymce/plugins/imagetools";
 import "tinymce/plugins/autosave";
 import "tinymce/plugins/autoresize";
+import "../../../static/tinymce/powerpaste";
 export default {
   name: "TinymceEditor",
   components: { Editor },
@@ -83,7 +84,7 @@ export default {
         "fontselect fontsizeselect styleselect | undo redo restoredraft | cut copy paste pastetext | forecolor  backcolor bold italic underline strikethrough link codesample code |\
          alignleft aligncenter alignright alignjustify outdent indent lineheight formatpainter | \
        bullist numlist | blockquote subscript superscript removeformat | \
-    table image media charmap hr pagebreak insertdatetime | fullscreen preview|",
+    table image media charmap hr pagebreak insertdatetime | fullscreen preview| powerpaste",
     },
   },
   data() {
@@ -109,6 +110,9 @@ export default {
         plugins: this.plugins,
         powerpaste_word_import: "merge",
         toolbar: this.toolbar,
+        external_plugins: {
+            'powerpaste': `/static/tinymce/powerpaste/plugin.min.js`//${this.baseUrl}
+        },
         paste_data_images: true,
         statusbar: true, // 底部的状态栏
         menubar: true, // 最上方的菜单

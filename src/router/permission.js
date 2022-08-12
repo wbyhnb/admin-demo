@@ -7,7 +7,8 @@ import "element-ui/lib/theme-chalk/index.css";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { getToken } from "@/utils/auth";
-import { getMenu, getUserinfo } from "@/api/logins";
+import { getMenu} from "@/api/logins";
+import {getUserInfo} from "@/api/user";
 import Layout from "@/layout";
 
 NProgress.configure({
@@ -47,8 +48,7 @@ router.beforeEach((to, from, next) => {
       return false;
     } else {
       if (store.state.user.roles.length === 0) {
-        const token = getToken();//获取token
-        getUserinfo({ token: token }).then(res => {//获取登录用户信息
+        getUserInfo().then(res => {//获取登录用户信息
           const data = res.data.data;
           store.commit("setUser", data);
           store.commit("setRoles", data.roles);
@@ -91,7 +91,7 @@ const constantRoutes = [
 ];
 
 async function getMenuList(to, next) {
-  const token = getToken();//获取token
+  const token = 123456;//获取token
   const { data } = await getMenu({ token: token });//获取动态路由菜单
   const routerList = filterRoutes(data.data);
   //动态添加路由

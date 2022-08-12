@@ -23,7 +23,7 @@
               <div class="inputBox">
                 <input
                   placeholder="账号"
-                  v-model="dataForm.username"
+                  v-model="dataForm.userName"
                 />
               </div>
               <div class="inputBox">
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       dataForm: {
-        username: "admin",
+        userName: "admin",
         password: "123456"
       }
     };
@@ -69,6 +69,7 @@ export default {
   methods: {
     Logins() {
       loginUser(this.dataForm).then(res => {
+        console.log(res);
         if (res.data.code == 200) {
           setToken(res.data.data.token);
           this.$router.replace({ path: "/" });

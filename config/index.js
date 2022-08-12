@@ -24,7 +24,15 @@ module.exports = {
         pathRewrite: {
           '^/home': '/home'
         }
+      },
+      "/": {
+        target: "http://localhost:8000",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/': '/'
+        }
       }
+
     },
 
     // Various Dev Server settings

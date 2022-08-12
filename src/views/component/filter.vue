@@ -36,7 +36,7 @@ export default {
     return {
       money: "11112345689",
       moneys: "-11112345689",
-      date: "2019-01-01",
+      date: "2019-01-01 12:12:12",
       percent: "0.11",
       replace: "15678945612",
       cases: "SksdfjkldsS"

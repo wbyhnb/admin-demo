@@ -15,19 +15,21 @@
       :size="setList.size || 'mini'"
       :fit="setList.fit || true"
       :default-sort="setList.defaultSort || { prop: '', order: '' }"
-      :empty-text="setList.emptyText ? setList.emptyText : '-'"
-      :height="setList.height ? setList.height : '100%'"
-      :row-key="setList.rowKey ? setList.rowKey : 'id'"
-      :max-height="setList.maxHeight ? setList.maxHeight : 'calc(100vh - 300px )'"
-      :show-pagination="setList.showPagination ? setList.showPagination : true"
-      :style="{width:setList.width ? setList.width : '100%'}"
+      :empty-text="setList.emptyText || '-'"
+      :height="setList.height ? setList.height : 'calc(100vh - 300px )'"
+      :row-key="setList.rowKey || ''"
+      :max-height="
+        setList.maxHeight ? setList.maxHeight : 'calc(100vh - 300px )'
+      "
+      :style="{ width: setList.width ? setList.width : '100%' }"
+      :tree-props="setList.treeProps || { children: 'children' }"
       @row-click="clickRow"
       @row-dblclick="dblclickRow"
       @row-contextmenu="contextmenu"
       @header-click="headClick"
       @header-contextmenu="headcontextmenu"
       @select="select"
-      @select-all="selectAll"
+      @select-all="select"
       @current-change="rowChange"
       @selection-change="handleSelectionChange"
     >
@@ -41,7 +43,7 @@
           :min-width="column.minWidth ? column.minWidth : null"
           :fixed="column.fixed ? column.fixed : null"
           :align="column.align ? column.align : 'center'"
-          :selectable="column.selectable ? column.selectable : null"
+          :selectable="selectable ? selectable : selectables"
         ></el-table-column>
         <!-- 序号 -->
         <el-table-column
@@ -61,7 +63,6 @@
           :label="column.label"
           :key="index"
           :sortable="column ? column.sortable : false"
-          :type="column.type ? column.type : null"
           :width="column.width ? column.width : null"
           :fixed="column.fixed ? column.fixed : null"
           :filters="column.filters ? column.filters : null"
@@ -148,6 +149,12 @@ export default {
     data: {
       type: Object,
       default: () => {}
+    },
+    selectable: {
+      type: Function,
+      default: () => {
+        return true;
+      }
     }
   },
   data() {
@@ -156,7 +163,6 @@ export default {
     };
   },
   computed: {
-  
     //计算表格数据
     tableData() {
       return this.data.list;
@@ -176,6 +182,11 @@ export default {
   },
   created() {
     // console.log(this.data);
+  },
+  mounted() {
+    if (this.$refs.table && this.$refs.table.doLayout) {
+      this.$refs.table.doLayout();
+    }
   },
   methods: {
     //数据筛查过滤
@@ -235,6 +246,11 @@ export default {
     // 分页改变事件
     currentChange(page) {
       this.$emit("currentChange", page);
+    },
+    //选择框事件
+    selectables(row) {
+      if (row) return true;
+      else return false;
     }
   }
 };
@@ -249,21 +265,29 @@ export default {
   display: flex;
   justify-content: flex-end;
 }
->>>.el-table__body-wrapper::-webkit-scrollbar-thumb{
-    background-color: $leftColor;
-    border: 1px solid #ddd;
-    z-index: 999;
-    border-radius: 5px;
+>>> .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  background-color: $leftColor;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  z-index: 999;
+  border-radius: 5px;
 }
->>>.el-table__body-wrapper::-webkit-scrollbar{
-    width: 10px;
-    height: 10px;
+>>> .el-table__body-wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
 }
->>>.el-table__fixed-right{
+>>> .el-table__fixed-right {
   right: 10px !important;
-  bottom: 10px !important;
+  bottom: 0px !important;
 }
->>>.el-table__fixed{
-  bottom: 10px !important;; 
+// >>>.el-table__body-wrapper{
+//   height:  !important;
+// }
+>>> .el-table__fixed {
+  bottom: 0px !important;
+}
+>>> .el-table--scrollable-x:not(.el-table--scrollable-y)
+  .el-table__fixed-right {
+  right: 0 !important;
 }
 </style>

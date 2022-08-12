@@ -1,6 +1,7 @@
 <template>
   <div class="">
     <h1>Tinymce富文本</h1>
+    {{content}}
     <div class="" v-html="content"></div>
     <Tinymce v-model="content" />
   </div>

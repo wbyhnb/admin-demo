@@ -6,6 +6,60 @@ export default {
       return {
         code: 200,
         data: [
+          {
+            path: "/user",
+            hidden: false,
+            name: "User",
+            component: "Layout",
+            redirect: "/user/index",
+            meta: {
+              requireAuth: true,
+              title: "用户管理"
+            },
+            children: [
+              {
+                path: "/user/index",
+                name: "UserIndex",
+                component: "users",
+                meta: {
+                  requireAuth: true,
+                  title: "用户列表"
+                }
+              },
+              {
+                path: "/user/add",
+                name: "UserAdd",
+                component: "add",
+                meta: {
+                  requireAuth: true,
+                  title: "添加用户"
+                }
+              }
+            ]
+          },
+          //菜单管理
+          {
+            path: "/menu",
+            hidden: false,
+            name: "Menu",
+            component: "Layout",
+            redirect: "/menu/index",
+            meta: {
+              requireAuth: true,
+              title: "菜单管理"
+            },
+            children: [
+              {
+                path: "/menu/index",
+                name: "MenuIndex",
+                component: "menu",
+                meta: {
+                  requireAuth: true,
+                  title: "菜单列表"
+                }
+              },
+            ]
+          },
           //图标
           {
             path: "/icon",

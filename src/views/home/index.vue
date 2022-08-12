@@ -21,8 +21,8 @@
                 <el-col :span="12"
                   ><div class="user-info">
                     <text-over :text="'欢迎回来'" /><br />
-                    <text-over :text="userInfo.name" /><br />
-                    <text-over :text="userInfo.rolename" /><br /></div
+                    <text-over :text="userInfo.userName" /><br />
+                    <text-over :text="userInfo.roleName" /><br /></div
                 ></el-col>
                 <el-col :span="24">
                   <el-divider content-position="left">┗|｀O′|┛ 嗷~~</el-divider>

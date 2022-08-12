@@ -51,7 +51,7 @@ export default {
           stripe: false, //是否显示表格条纹
           borderType: "line", //表格边框类型
           emptyText: "暂无数据", //空数据提示文本
-          height: "100%", //表格高度
+          // height: "100%", //表格高度
           rowKey: "id", //表格数据key
           showPagination: true //是否显示分页
         },

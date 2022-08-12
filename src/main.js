@@ -16,7 +16,8 @@ import butCol from "@/components/but-col";
 import prism from "@/components/editor/vue-prism-editor.vue";
 import mavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
-
+import Otable from "@/components/o-table";
+import Odrawer from "@/components/o-drawer";
 
 //自定义指令
 import "@/plugins/index";
@@ -38,6 +39,8 @@ Vue.component("icon-svg", IconSvg);
 Vue.component("text-over", textOver);
 Vue.component("but-col", butCol);
 Vue.component("prism", prism);
+Vue.component("Otable", Otable);
+Vue.component("o-drawer", Odrawer);
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 Vue.use(ElementUI);

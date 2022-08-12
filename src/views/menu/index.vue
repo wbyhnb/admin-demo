@@ -1,10 +1,6 @@
 <template>
   <div class="">
-    <Otable
-      :data="tableData"
-      @select="selectChange"
-      :selectable="selectable"
-    >
+    <Otable :data="tableData" @select="selectChange" :selectable="selectable" :tree-props="{children: 'children'}">
       <template #header>
         <el-form
           :inline="true"
@@ -45,15 +41,16 @@
         <el-button type="primary" size="mini" @click="open('save', '')"
           >新增</el-button
         >
-        <el-button
+        <!-- <el-button
           type="primary"
           size="mini"
           :disabled="selectList.length > 0 ? false : true"
           @click="deletes"
           >删除</el-button
-        >
+        > -->
       </template>
     </Otable>
+   
     <o-drawer :title="title" :visible="drawer" :handleClose="handleClose">
       <updataForm ref="updataForm"></updataForm>
       <template #footer>
@@ -67,11 +64,53 @@
 </template>
 
 <script>
-import * as api from "@/api/user";
+import * as api from "@/api/menu.js";
 export default {
   name: "users",
   data() {
     return {
+        columns: [
+            {
+              type: "selection",
+              fixed: "left"
+            },
+          {
+            prop: "menuId",
+            label: "ID",
+            width: "180",
+            align: "left"
+          },
+          {
+            prop: "title",
+            label: "名称",
+            minWidth: "180",
+            align: "left"
+          },
+          {
+            prop: "menuType",
+            label: "菜单类型",
+            minWidth: "180"
+          },
+          {
+            prop: "status",
+            label: "帐号状态",
+            minWidth: "180"
+          },
+          {
+            prop: "orderNum",
+            label: "显示顺序",
+            minWidth: "180"
+          },
+          {
+            prop: "icon",
+            label: "菜单图标",
+            minWidth: "200"
+          },
+          {
+            prop: "remark",
+            label: "备注",
+            minWidth: "180"
+          },],
       tableData: {
         setList: {
           loading: false, //是否加载中
@@ -81,29 +120,33 @@ export default {
           emptyText: "暂无数据", //空数据提示文本
           height: "calc(100vh - 300px )", //表格高度
           // maxHeight: "100%", //表格最小宽度
-          rowKey: "userId", //表格数据key
-          showPagination: true //是否显示分页
+          rowKey: "menuId", //表格数据key
+          treeProps: {
+            children: "children"
+          },
+          showPagination: false //是否显示分页
         },
         list: [],
 
         columns: [
+          //   {
+          //     type: "selection",
+          //     fixed: "left"
+          //   },
           {
-            type: "selection",
-            fixed: "left"
-          },
-          {
-            prop: "userId",
+            prop: "menuId",
             label: "ID",
-            width: "50"
+            width: "180",
+            align: "left"
           },
           {
-            prop: "userName",
+            prop: "title",
             label: "名称",
             minWidth: "180"
           },
           {
-            prop: "email",
-            label: "邮箱",
+            prop: "menuType",
+            label: "菜单类型",
             minWidth: "180"
           },
           {
@@ -112,16 +155,21 @@ export default {
             minWidth: "180"
           },
           {
+            prop: "orderNum",
+            label: "显示顺序",
+            minWidth: "180"
+          },
+          {
+            prop: "icon",
+            label: "菜单图标",
+            minWidth: "200"
+          },
+          {
             prop: "remark",
             label: "备注",
             minWidth: "180"
           },
 
-          {
-            prop: "roleName",
-            label: "角色",
-            minWidth: "200"
-          },
           {
             label: "操作",
             minWidth: "180",
@@ -137,12 +185,29 @@ export default {
                       props: {
                         type: "text",
                         size: "mini",
-                        icon: "el-icon-edit",
-                        disabled: params.row.userId === 1
+                        icon: "el-icon-plus",
+                        
                       },
                       style: {
                         display:
-                          params.row.userId === 1 ? "none" : "inline-block"
+                          params.row.menuId === 0 ? "none" : "inline-block"
+                      },
+                      on: {
+                        click: () => {
+                          this.open("updata", params.row);
+                        }
+                      }
+                    },
+                    "新增下级"
+                  ),
+                  h(
+                    "el-button",
+                    {
+                      props: {
+                        type: "text",
+                        size: "mini",
+                        icon: "el-icon-edit",
+                       
                       },
                       on: {
                         click: () => {
@@ -162,39 +227,21 @@ export default {
                       },
                       style: {
                         display:
-                          params.row.userId === 1 ? "none" : "inline-block"
+                          params.row.children  ? "none" : "inline-block"
                       },
                       on: {
                         click: () => {
-                          this.delete(params.row.userId);
+                          this.delete(params.row.menuId);
                         }
                       }
                     },
                     "删除"
                   )
-                ],
-                {
-                  style: {
-                    display: "inline-block",
-                    marginLeft: "10px"
-                  }
-                }
+                ]
+                
               )
           }
         ],
-        pagination: {
-          total: 0, //总条数
-          current: 1, //当前页
-          pageSize: 10, //每页条数
-          sizeChange: page => {
-            this.tableData.pagination.pageSize = page;
-            this.getList();
-          },
-          currentChange: pageSize => {
-            this.tableData.pagination.current = pageSize;
-            this.getList();
-          }
-        }
       },
       queryForm: {},
       drawer: false,
@@ -212,15 +259,10 @@ export default {
     //获取列表
     getList() {
       this.tableData.setList.loading = true;
-      let params = {
-        pageNum: this.tableData.pagination.current,
-        pageSize: this.tableData.pagination.pageSize,
-        ...this.queryForm
-      };
-      api.getUserList(params).then(res => {
+      api.getMenuList().then(res => {
         this.tableData.setList.loading = false;
         this.tableData.list = res.data.data;
-        this.tableData.pagination.total = res.data.total;
+
       });
     },
     //选择框禁用
@@ -230,19 +272,19 @@ export default {
     },
     //单选/全选
     selectChange(val) {
-      this.selectList = []
-      val.row.map((a)=>{
+      this.selectList = [];
+      val.row.map(a => {
         this.selectList.push(a.userId);
-      })
+      });
     },
     //打开抽屉
     open(type, data) {
       this.drawer = true;
 
       if (type === "save") {
-        this.title = "新增用户信息";
+        this.title = "新增菜单信息";
       } else if (type === "updata") {
-        this.title = "编辑用户信息";
+        this.title = "编辑菜单信息";
         this.$nextTick().then(() => {
           this.$refs.updataForm.init(data);
         });
@@ -256,7 +298,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          api.deleteUser(this.selectList).then(res => {
+          api.deleteMenu(this.selectList).then(res => {
             this.$message.success("删除成功");
             this.getList();
           });
@@ -277,7 +319,7 @@ export default {
       })
         .then(() => {
           let params = [id];
-          api.deleteUser(params).then(res => {
+          api.deleteMenu(params).then(res => {
             this.$message({
               message: "删除成功",
               type: "success"
@@ -295,9 +337,11 @@ export default {
     //更新信息
     updata() {
       this.$refs.updataForm.submitForm();
-      this.$nextTick();
-      this.handleClose();
-      this.getList();
+      this.$nextTick(()=>{
+        this.getList();
+      });
+      // this.handleClose();
+      
     },
     //关闭抽屉
     handleClose() {
