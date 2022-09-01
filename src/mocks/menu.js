@@ -25,31 +25,7 @@ export default {
                   requireAuth: true,
                   title: "用户列表"
                 }
-              },
-              {
-                path: "/user/add",
-                name: "UserAdd",
-                component: "add",
-                meta: {
-                  requireAuth: true,
-                  title: "添加用户"
-                }
-              }
-            ]
-          },
-          //菜单管理
-          {
-            path: "/menu",
-            hidden: false,
-            name: "Menu",
-            component: "Layout",
-            redirect: "/menu/index",
-            meta: {
-              requireAuth: true,
-              title: "菜单管理"
-            },
-            children: [
-              {
+              }, {
                 path: "/menu/index",
                 name: "MenuIndex",
                 component: "menu",
@@ -57,7 +33,16 @@ export default {
                   requireAuth: true,
                   title: "菜单列表"
                 }
-              },
+              },{
+                path: "/role/index",
+                name: "RoleIndex",
+                component: "role",
+                meta: {
+                  requireAuth: true,
+                  title: "角色列表"
+                }
+              }
+              
             ]
           },
           //图标

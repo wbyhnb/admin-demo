@@ -18,6 +18,22 @@
     <el-form-item label="手机号" prop="phonenumber">
       <el-input v-model="userForm.phonenumber"></el-input>
     </el-form-item>
+    <el-form-item label="角色" prop="roleKey">
+      <el-select
+        @focus="roleList"
+        v-model="userForm.roles"
+        placeholder="请选择"
+        @change="roleChange"
+      >
+        <el-option
+          v-for="item in options"
+          :key="item.rolrKey"
+          :label="item.roleName"
+          :value="item.roleKey"
+        >
+        </el-option>
+      </el-select>
+    </el-form-item>
     <el-form-item label="性别" prop="sex">
       <el-radio-group v-model="userForm.sex">
         <el-radio label="1">男</el-radio>
@@ -39,12 +55,15 @@
 
 <script>
 import { updateUserInfo, getUserById } from "@/api/user.js";
+import { getRoleList } from "@/api/role.js";
 export default {
   data() {
     return {
       userForm: {
-        status: '1'
+        status: "1",
+        roleName: ""
       },
+      options: [],
       rules: {
         userName: [
           {
@@ -72,18 +91,28 @@ export default {
     submitForm() {
       this.$refs["userForm"].validate(valid => {
         if (valid) {
-         
-            updateUserInfo(this.userForm).then(res => {
-              this.$message({
-                message: res.data.msg,
-                type: "success"
-              });
+          updateUserInfo(this.userForm).then(res => {
+            this.$message({
+              message: res.data.msg,
+              type: "success"
             });
-         
+          });
         } else {
           return false;
         }
       });
+    },
+    roleList() {
+      getRoleList().then(res => {
+        this.options = res.data.data;
+      });
+    },
+    roleChange(val) {
+      console.log(val);
+      this.userForm.roleName = this.options.filter(item => {
+        return item.roleKey == val;
+      })[0].roleName;
+      console.log(this.userForm.roleName);
     },
     resetForm() {
       this.$refs["userForm"].resetFields();

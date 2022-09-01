@@ -84,7 +84,7 @@
 </template>
 
 <script>
-import { getMenuDetail, updataMenu } from "@/api/menu.js";
+import { getRoleDetail, updataRole } from "@/api/role.js";
 export default {
   data() {
     return {
@@ -111,14 +111,14 @@ export default {
   },
   methods: {
     init(data) {
-      getMenuDetail(data.menuId).then(res => {
+      getRoleDetail(data.roleId).then(res => {
         this.menuForm = res.data.data;
       });
     },
     submitForm() {
       this.$refs["menuForm"].validate(valid => {
         if (valid) {
-          updataMenu(this.menuForm).then(res => {
+          updataRole(this.menuForm).then(res => {
             this.$message({
               message: res.data.msg,
               type: "success"
